@@ -1,0 +1,26 @@
+### HEXMate logfile and output summary ###
+### Memory Usage ###
+ Unused memory ranges:
+  0h - 400Dh
+  4010h - 41FFh
+  420Ch - 423Fh
+  
+ dist/default/production\PIC16F84A.X.production.hex ranges:
+  400Eh - 400Fh
+  4200h - 420Bh
+  
+### Hex Memory Map ###
+ Legend:
+  - = Unused memory
+  F = Filled ROM
+  S = Stored serial code
+  A = Stored ASCII string
+  R = Reserved for checksum
+  C = Stored checksum result
+  T = Trailing code
+  & = Find & replace opcode
+  X = Find & delete opcode
+  1 = dist/default/production\PIC16F84A.X.production.hex
+00000000: ----------------------------------------------------------------
+00004000: --------------11------------------------------------------------
+00004200: 111111111111----------------------------------------------------

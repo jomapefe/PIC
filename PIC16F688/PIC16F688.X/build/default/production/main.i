@@ -1272,16 +1272,20 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 7 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\xc.inc" 2 3
-# 4 "main.s" 2
+# 3 "main.s" 2
 
 
 
+ bcf STATUS,STATUS_RP0_POSITION
 
-BCF STATUS,((STATUS) and 07Fh), 5 ;((STATUS) and 07Fh), 5 ->1
+bcf STATUS,5
 bcf STATUS,6 ;((STATUS) and 07Fh), 6 ->0 STATUS->(x10xxxxx)
-;BANKSEL PORTA
+BANKSEL PORTA
 
 clrf PORTA ;Init PORTA
 movlw 07h ;Cargamos W con (00000110)
     movwf ADCON0;Cargamos el registro ADCON1 con el valor de W(00000110)
 MOVWF CMCON0
+
+
+    end
