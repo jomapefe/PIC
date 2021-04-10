@@ -5,8 +5,8 @@ PROCESSOR 16F688
 
     
     
-bcf STATUS,RP0	;RP0->1 
-bcf STATUS,RP1	;RP1->0 STATUS->(x10xxxxx)
+bcf STATUS,5	;RP0->1 
+bcf STATUS,6	;RP1->0 STATUS->(x10xxxxx)
 ;BANKSEL PORTA 
     
 clrf PORTA ;Init PORTA
