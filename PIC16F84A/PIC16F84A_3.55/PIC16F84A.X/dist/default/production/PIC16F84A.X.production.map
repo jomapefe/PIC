@@ -1,0 +1,42 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Mon Apr 12 14:30:54 2021
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000020
+                   .cinit    romdata   0x000010    program   0x000004
+.config_2007_BUILD/DEFAULT/PRODUCTION/MAIN.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000011      
+                            0x002007    0x002007      
+            19 out of 1094 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   BUCLE1   0x00000b    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+                   BUCLE2   0x00000a    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+                   INICIO   0x000000    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+                PRINCIPAL   0x000003    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+                  RETARDO   0x000008    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000000    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+                PRINCIPAL   0x000003    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+                  RETARDO   0x000008    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+                   BUCLE2   0x00000a    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+                   BUCLE1   0x00000b    program     static D:\GitHub\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\main.asm
+
+
