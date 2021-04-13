@@ -1,3 +1,1 @@
-Warning[205] D:\GITHUB\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\MAIN.ASM 2 : Found directive in column 1. (list)
-Warning[205] D:\GITHUB\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\MAIN.ASM 3 : Found directive in column 1. (include)
-Message[302] D:\GITHUB\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\MAIN.ASM 13 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\GITHUB\PIC\PIC\PIC16F84A\PIC16F84A_3.55\PIC16F84A.X\MAIN.ASM 12 : Register in operand not in bank 0.  Ensure that bank bits are correct.

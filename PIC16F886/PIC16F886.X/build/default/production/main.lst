@@ -1,4 +1,4 @@
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE  1
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00036    
                       00037     
                       00038      ;inicio de secuencia
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE  2
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -98,7 +98,7 @@ Error[128]  : Missing argument(s)
                       00069  
                       00070  
 3FFD 3FFF             00071  END
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE  3
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE  3
 
 
 SYMBOL TABLE
@@ -157,7 +157,7 @@ BRG9                              00000001
 BRGH                              00000002
 BUCLE1                            0000000F
 BUCLE2                            0000000E
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE  4
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE  4
 
 
 SYMBOL TABLE
@@ -216,7 +216,7 @@ CHS1                              00000003
 CHS2                              00000004
 CHS3                              00000005
 CKE                               00000006
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE  5
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE  5
 
 
 SYMBOL TABLE
@@ -275,7 +275,7 @@ INTF                              00000001
 IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE  6
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE  6
 
 
 SYMBOL TABLE
@@ -334,7 +334,7 @@ PDC0                              00000000
 PDC1                              00000001
 PDC2                              00000002
 PDC3                              00000003
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE  7
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE  7
 
 
 SYMBOL TABLE
@@ -393,7 +393,7 @@ RC2                               00000002
 RC3                               00000003
 RC4                               00000004
 RC5                               00000005
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE  8
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE  8
 
 
 SYMBOL TABLE
@@ -452,7 +452,7 @@ SSPMSK                            00000093
 SSPOV                             00000006
 SSPSTAT                           00000094
 STATUS                            00000003
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE  9
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE  9
 
 
 SYMBOL TABLE
@@ -511,7 +511,7 @@ TRISA6                            00000006
 TRISA7                            00000007
 TRISB                             00000086
 TRISB0                            00000000
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE 10
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE 10
 
 
 SYMBOL TABLE
@@ -570,7 +570,7 @@ WCOL                              00000007
 WDTCON                            00000105
 WDTPS0                            00000001
 WDTPS1                            00000002
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE 11
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE 11
 
 
 SYMBOL TABLE
@@ -629,7 +629,7 @@ _FOSC_INTRC_NOCLKOUT              00003FFC
 _FOSC_LP                          00003FF8
 _FOSC_XT                          00003FF9
 _HS_OSC                           00003FFA
-MPASM 5.72                          MAIN.ASM   4-13-2021  15:20:53         PAGE 12
+MPASM 5.72                          MAIN.ASM   4-13-2021  17:58:41         PAGE 12
 
 
 SYMBOL TABLE
