@@ -1,15 +1,14 @@
-MPASM 5.72                          MAIN.ASM   4-12-2021  14:30:54         PAGE  1
+MPASM 5.72                          MAIN.ASM   4-13-2021  12:03:05         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00001 
-                      00002 ;configuracion del compilador
+                      00001 ;configuracion del compilador
 Warning[205]: Found directive in column 1. (list)
-                      00003 list p=16f84a
+                      00002 list p=16f84a
 Warning[205]: Found directive in column 1. (include)
-                      00004 include <p16f84a.inc>
+                      00003 include <p16f84a.inc>
                       00001         LIST
                       00002 
                       00003 ;==========================================================================
@@ -20,37 +19,36 @@ Warning[205]: Found directive in column 1. (include)
                       00008 ;==========================================================================
                       00009 
                       00209         LIST
-                      00005 ;__CONFIG       _CP_OFF & _WDT_OFF & _PWRTE_ON & _XT_OSC
-Warning[205]: Found directive in column 1. (__CONFIG)
-2007   3FF3           00006 __CONFIG _FOSC_EXTRC & _WDTE_OFF & _PWRTE_ON & _CP_OFF
-                      00007 ; declaracion de variables
-  0000000C            00008 REG1            EQU     0X0c            ;asigna nombre a los registros
-  0000000D            00009 REG2            EQU     0X0d            
-                      00010                         ORG     0                       ;directiva de origen de programa
-                      00011 
-                      00012 ;configuracion de puertos               
-0000   1683           00013 INICIO          BSF             STATUS,5        ;ir al banco (1)
+                      00004 ;__CONFIG       _CP_OFF & _WDT_OFF & _PWRTE_ON & _XT_OSC
+2007   3FF3           00005  __CONFIG _FOSC_EXTRC & _WDTE_OFF & _PWRTE_ON & _CP_OFF
+                      00006 ; declaracion de variables
+  0000000C            00007 REG1            EQU     0X0c            ;asigna nombre a los registros
+  0000000D            00008 REG2            EQU     0X0d            
+                      00009                         ORG     0                       ;directiva de origen de programa
+                      00010 
+                      00011 ;configuracion de puertos               
+0000   1683           00012 INICIO          BSF             STATUS,5        ;ir al banco (1)
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0001   0186           00014                         CLRF    TRISB           ;todo el puerto B es salida
-0002   1283           00015                         BCF             STATUS,5        ;ir al banco (0)
-                      00016 
-                      00017 ;inicio de secuencia
-0003   1606           00018 PRINCIPAL       BSF             PORTB,4         ;HIGH  a RB4
-0004   2???           00019                         CALL    RETARDO         ;llama a retardo
-0005   1206           00020                         BCF             PORTB,4         ;LOW a RB4
-0006   2???           00021                         CALL    RETARDO         ;Llama a retardo
-0007   2???           00022                         GOTO    PRINCIPAL       ;Retorna a la etiqueta PRINCIPAL
-                      00023 ;retardos
-0008   300B           00024 RETARDO         MOVLW   D'011'          ;carga el registro W con 255
-0009   008D           00025                         MOVWF   REG2            ;mover el valor de W a REG2
-000A   008C           00026 BUCLE2          MOVWF   REG1            ;mover el valor de W a REG1
-000B   0B8C           00027 BUCLE1          DECFSZ  REG1,F          ;Decrementa REG1, salta una linea si es 0
-000C   2???           00028                         GOTO    BUCLE1          ;ir a la etiqueta bucle1
-000D   0B8D           00029                         DECFSZ  REG2,F          ;Decrementa REG2, salta una linea si es 0
-000E   2???           00030                         GOTO    BUCLE2          ;ir a al etiqueta bucle2
-000F   0008           00031                         RETURN                          ;retornar al lugar de donde se lo llamo
-3FF3                  00032                         END                                     ;fin de programa
-MPASM 5.72                          MAIN.ASM   4-12-2021  14:30:54         PAGE  2
+0001   0186           00013                         CLRF    TRISB           ;todo el puerto B es salida
+0002   1283           00014                         BCF             STATUS,5        ;ir al banco (0)
+                      00015 
+                      00016 ;inicio de secuencia
+0003   1506           00017 PRINCIPAL       BSF             PORTB,2         ;HIGH  a RB4
+0004   2???           00018                         CALL    RETARDO         ;llama a retardo
+0005   1106           00019                         BCF             PORTB,2         ;LOW a RB4
+0006   2???           00020                         CALL    RETARDO         ;Llama a retardo
+0007   2???           00021                         GOTO    PRINCIPAL       ;Retorna a la etiqueta PRINCIPAL
+                      00022 ;retardos
+0008   3078           00023 RETARDO         MOVLW   D'120'          ;carga el registro W con 255
+0009   008D           00024                         MOVWF   REG2            ;mover el valor de W a REG2
+000A   008C           00025 BUCLE2          MOVWF   REG1            ;mover el valor de W a REG1
+000B   0B8C           00026 BUCLE1          DECFSZ  REG1,F          ;Decrementa REG1, salta una linea si es 0
+000C   2???           00027                         GOTO    BUCLE1          ;ir a la etiqueta bucle1
+000D   0B8D           00028                         DECFSZ  REG2,F          ;Decrementa REG2, salta una linea si es 0
+000E   2???           00029                         GOTO    BUCLE2          ;ir a al etiqueta bucle2
+000F   0008           00030                         RETURN                          ;retornar al lugar de donde se lo llamo
+3FF3                  00031                         END                                     ;fin de programa
+MPASM 5.72                          MAIN.ASM   4-13-2021  12:03:05         PAGE  2
 
 
 SYMBOL TABLE
@@ -109,7 +107,7 @@ REG1                              0000000C
 REG2                              0000000D
 RETARDO                           00000008
 RP0                               00000005
-MPASM 5.72                          MAIN.ASM   4-12-2021  14:30:54         PAGE  3
+MPASM 5.72                          MAIN.ASM   4-13-2021  12:03:05         PAGE  3
 
 
 SYMBOL TABLE
@@ -168,14 +166,14 @@ _WDT_ON                           00003FFF
 _XT_OSC                           00003FFD
 __16F84A                          00000001
 
-MPASM 5.72                          MAIN.ASM   4-12-2021  14:30:54         PAGE  4
+MPASM 5.72                          MAIN.ASM   4-13-2021  12:03:05         PAGE  4
 
 
 
 
 
 Errors   :     0
-Warnings :     3 reported,     0 suppressed
+Warnings :     2 reported,     0 suppressed
 Messages :     1 reported,     0 suppressed
 
 
