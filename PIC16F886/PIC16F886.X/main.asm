@@ -31,9 +31,10 @@ INICIO
 		
 		MOVLW	B'11101111'	;configuracion para TMR0
 		MOVWF	OPTION_REG	;cargo e registro OPTION_REG
-		BCF	TRISC,TRISC4	;T0CKI 
+		MOVLW  B'0000001000'
+		MOVWF	TRISC	;T0CKI 
 		
-		MOVLW  B'0000001000'	; 8BITS -> W
+		MOVLW  B'0000010000'	; 8BITS -> W
 		MOVWF   TRISA		; PORTA COMO SALIDA, TOCKI como entrada
 
 		BCF	   STATUS,RP1; SELECCIONAMOS EL BANCO 0
@@ -45,6 +46,11 @@ PRINCIPAL	BSF PORTA,RB0		;HIGH  a RB4
 		CALL	RETARDO		;llama a retardo
 		BCF PORTA,RB0		;LOW a RB4ON   
 		CALL	RETARDO		;Llama a retardo
+		
+		MOVF	TMR0,0
+		MOVWF	PORTC
+		
+		
 		GOTO	PRINCIPAL	;Retorna a la etiqueta PRINCIPAL
 ;retardos
 RETARDO		MOVLW	D'011'		;carga el registro W con 255
