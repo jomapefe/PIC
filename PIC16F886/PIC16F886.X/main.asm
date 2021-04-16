@@ -55,8 +55,17 @@ PRINCIPAL	BSF PORTA,RB0		;HIGH  a RB4
 		BCF PORTA,RB0		;LOW a RB4ON   
 		CALL	RETARDO		;Llama a retardo
 		
+		;Temporizador 0 como contador externo sin prescalr
 		MOVF	TMR0,0
 		MOVWF	PORTB
+		
+		;pwm
+		MOVLW	B'10000001'
+		MOVWF	ADCON0
+		
+		
+		
+		
 		
 		
 		GOTO	PRINCIPAL	;Retorna a la etiqueta PRINCIPAL
