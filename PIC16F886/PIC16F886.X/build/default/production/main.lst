@@ -1,4 +1,4 @@
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE  1
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -53,50 +53,52 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0005   3008           00034                 MOVLW  B'0000001000'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0006   0087           00035                 MOVWF   TRISC   ;T0CKI 
-                      00036                 
-0007   3010           00037                 MOVLW  B'0000010000'    ; 8BITS -> W
+0007   3000           00036                 MOVLW  B'0000000000'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0008   0085           00038                 MOVWF   TRISA           ; PORTA COMO SALIDA, TOCKI como entrada
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE  2
+0008   0086           00037                 MOVWF   TRISB   
+0009   3010           00038                 MOVLW  B'0000010000'    ; 8BITS -> W
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00039 
-0009   1303           00040                 BCF        STATUS,RP1; SELECCIONAMOS EL BANCO 0
-000A   1283           00041                 BCF        STATUS,RP0; SELECCIONAMOS EL BANCO 0
-                      00042    
-                      00043     
-                      00044      ;inicio de secuencia
-000B   1405           00045 PRINCIPAL       BSF PORTA,RB0           ;HIGH  a RB4
-000C   2???           00046                 CALL    RETARDO         ;llama a retardo
-000D   1005           00047                 BCF PORTA,RB0           ;LOW a RB4ON   
-000E   2???           00048                 CALL    RETARDO         ;Llama a retardo
-                      00049                 
-000F   0801           00050                 MOVF    TMR0,0
-0010   0087           00051                 MOVWF   PORTC
-                      00052                 
-                      00053                 
-0011   2???           00054                 GOTO    PRINCIPAL       ;Retorna a la etiqueta PRINCIPAL
-                      00055 ;retardos
-0012   300B           00056 RETARDO         MOVLW   D'011'          ;carga el registro W con 255
-0013   008D           00057                         MOVWF   REG2            ;mover el valor de W a REG2
-0014   008C           00058 BUCLE2          MOVWF   REG1            ;mover el valor de W a REG1
-0015   0B8C           00059 BUCLE1          DECFSZ  REG1,F          ;Decrementa REG1, salta una linea si es 0
-0016   2???           00060                         GOTO    BUCLE1          ;ir a la etiqueta bucle1
-0017   0B8D           00061                         DECFSZ  REG2,F          ;Decrementa REG2, salta una linea si es 0
-0018   2???           00062                         GOTO    BUCLE2          ;ir a al etiqueta bucle2
-0019   0008           00063                         RETURN                          ;retornar al lugar de donde se lo llamo
-                      00064 
-                      00065  
-                      00066  
-                      00067  
-                      00068  
-                      00069  
-                      00070  
-                      00071  
-                      00072  
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000A   0085           00039                 MOVWF   TRISA           ; PORTA COMO SALIDA, TOCKI como entrada
+                      00040                 
+                      00041                 
+000B   1703           00042                 BSF        STATUS,RP1; SELECCIONAMOS EL BANCO 3
+000C   1683           00043                 BSF        STATUS,RP0; SELECCIONAMOS EL BANCO 3
+000D   3001           00044                 MOVLW  B'0000000001'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000E   0088           00045                 MOVWF   ANSEL
+                      00046                 
+                      00047                 
+000F   1303           00048                 BCF        STATUS,RP1; SELECCIONAMOS EL BANCO 0
+0010   1283           00049                 BCF        STATUS,RP0; SELECCIONAMOS EL BANCO 0
+                      00050    
+                      00051     
+                      00052      ;inicio de secuencia
+0011   1405           00053 PRINCIPAL       BSF PORTA,RB0           ;HIGH  a RB4
+0012   2???           00054                 CALL    RETARDO         ;llama a retardo
+0013   1005           00055                 BCF PORTA,RB0           ;LOW a RB4ON   
+0014   2???           00056                 CALL    RETARDO         ;Llama a retardo
+                      00057                 
+0015   0801           00058                 MOVF    TMR0,0
+0016   0086           00059                 MOVWF   PORTB
+                      00060                 
+                      00061                 
+0017   2???           00062                 GOTO    PRINCIPAL       ;Retorna a la etiqueta PRINCIPAL
+                      00063 ;retardos
+0018   300B           00064 RETARDO         MOVLW   D'011'          ;carga el registro W con 255
+0019   008D           00065                         MOVWF   REG2            ;mover el valor de W a REG2
+001A   008C           00066 BUCLE2          MOVWF   REG1            ;mover el valor de W a REG1
+001B   0B8C           00067 BUCLE1          DECFSZ  REG1,F          ;Decrementa REG1, salta una linea si es 0
+001C   2???           00068                         GOTO    BUCLE1          ;ir a la etiqueta bucle1
+001D   0B8D           00069                         DECFSZ  REG2,F          ;Decrementa REG2, salta una linea si es 0
+001E   2???           00070                         GOTO    BUCLE2          ;ir a al etiqueta bucle2
+001F   0008           00071                         RETURN                          ;retornar al lugar de donde se lo llamo
+                      00072 
                       00073  
                       00074  
                       00075  
@@ -106,8 +108,22 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00079  
                       00080  
                       00081  
-3FFD 3FFF             00082  END
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE  3
+                      00082  
+                      00083  
+                      00084  
+                      00085  
+                      00086  
+                      00087  
+                      00088  
+                      00089  
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+3FFD 3FFF             00090  END
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE  4
 
 
 SYMBOL TABLE
@@ -164,9 +180,9 @@ BRG7                              00000007
 BRG8                              00000000
 BRG9                              00000001
 BRGH                              00000002
-BUCLE1                            00000015
-BUCLE2                            00000014
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE  4
+BUCLE1                            0000001B
+BUCLE2                            0000001A
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE  5
 
 
 SYMBOL TABLE
@@ -225,7 +241,7 @@ CHS1                              00000003
 CHS2                              00000004
 CHS3                              00000005
 CKE                               00000006
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE  5
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE  6
 
 
 SYMBOL TABLE
@@ -284,7 +300,7 @@ INTF                              00000001
 IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE  6
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE  7
 
 
 SYMBOL TABLE
@@ -343,7 +359,7 @@ PDC0                              00000000
 PDC1                              00000001
 PDC2                              00000002
 PDC3                              00000003
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE  7
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE  8
 
 
 SYMBOL TABLE
@@ -363,7 +379,7 @@ PORTB                             00000006
 PORTC                             00000007
 PORTE                             00000009
 PR2                               00000092
-PRINCIPAL                         0000000B
+PRINCIPAL                         00000011
 PRSEN                             00000007
 PS0                               00000000
 PS1                               00000001
@@ -402,7 +418,7 @@ RC2                               00000002
 RC3                               00000003
 RC4                               00000004
 RC5                               00000005
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE  8
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE  9
 
 
 SYMBOL TABLE
@@ -424,7 +440,7 @@ RE3                               00000003
 READ_WRITE                        00000002
 REG1                              0000000C
 REG2                              0000000D
-RETARDO                           00000012
+RETARDO                           00000018
 RP0                               00000005
 RP1                               00000006
 RSEN                              00000001
@@ -461,7 +477,7 @@ SSPMSK                            00000093
 SSPOV                             00000006
 SSPSTAT                           00000094
 STATUS                            00000003
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE  9
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE 10
 
 
 SYMBOL TABLE
@@ -520,7 +536,7 @@ TRISA6                            00000006
 TRISA7                            00000007
 TRISB                             00000086
 TRISB0                            00000000
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE 10
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE 11
 
 
 SYMBOL TABLE
@@ -579,7 +595,7 @@ WCOL                              00000007
 WDTCON                            00000105
 WDTPS0                            00000001
 WDTPS1                            00000002
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE 11
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE 12
 
 
 SYMBOL TABLE
@@ -638,7 +654,7 @@ _FOSC_INTRC_NOCLKOUT              00003FFC
 _FOSC_LP                          00003FF8
 _FOSC_XT                          00003FF9
 _HS_OSC                           00003FFA
-MPASM 5.72                          MAIN.ASM   4-16-2021  13:17:57         PAGE 12
+MPASM 5.72                          MAIN.ASM   4-16-2021  14:10:23         PAGE 13
 
 
 SYMBOL TABLE
@@ -674,6 +690,6 @@ __16F886                          00000001
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :     4 reported,     0 suppressed
+Messages :     6 reported,     0 suppressed
 
 
