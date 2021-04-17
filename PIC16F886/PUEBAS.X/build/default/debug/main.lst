@@ -1,17 +1,15 @@
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE  1
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
                       00001 
-                      00002 
+                      00002 ; PIC16F886 Configuration Bit Settings
                       00003 
-                      00004 ; PIC16F886 Configuration Bit Settings
+                      00004 ; Assembly source line config statements
                       00005 
-                      00006 ; Assembly source line config statements
-                      00007 
-                      00008 #include "p16f886.inc"
+                      00006 #include "p16f886.inc"
                       00001         LIST
                       00002 
                       00003 ;==========================================================================
@@ -22,97 +20,43 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00008 ;==========================================================================
                       00009 
                       00779         LIST
-                      00009 
-                      00010 ; CONFIG1
-                      00011 ; __config 0xFFFF
-2007   3FFF           00012  __CONFIG _CONFIG1, _FOSC_EXTRC_CLKOUT & _WDTE_ON & _PWRTE_OFF & _MCLRE_ON & _CP_OFF & _CPD_OFF & _BOREN
+                      00007 
+                      00008 ; CONFIG1
+                      00009 ; __config 0xFFFF
+2007   3FFF           00010  __CONFIG _CONFIG1, _FOSC_EXTRC_CLKOUT & _WDTE_ON & _PWRTE_OFF & _MCLRE_ON & _CP_OFF & _CPD_OFF & _BOREN
                             _ON & _IESO_ON & _FCMEN_ON & _LVP_ON
-                      00013 ; CONFIG2
-                      00014 ; __config 0xFFFF
-2008   3FFF           00015  __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
-                      00016 
-                      00017 ;Variables
-  00000064            00018 Periodo     equ     .100 ;.300  
-                      00019 ;Periodo = (PR2+1)*Prescaler*4*Tosc
-                      00020             
-  00000020            00021 Duty_On     equ     0x20        ;Vairalbes de ancho de pulso
-  00000021            00022 Duty_Off    equ     0x21
-                      00023             
-                      00024     
-                      00025 ;CODIGO    
-                      00026     ORG     0
-0000   2???           00027     GOTO    INICIO
-                      00028     ORG     5
-                      00029 
-0005                  00030 INICIO
-0005   1683           00031     BSF     STATUS,RP0
-0006   1703           00032     BSF     STATUS,RP1  ;Banco 3
-0007   3001           00033     MOVLW   B'00000001' 
+                      00011 ; CONFIG2
+                      00012 ; __config 0xFFFF
+2008   3FFF           00013  __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
+                      00014 
+                      00015  
+                      00016  
+                      00017  ORG        0
+                      00018 
+0000   1303           00019     BCF STATUS,RP1      ;Banco 1
+                      00020 
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0008   0088           00034     MOVWF   ANSEL       ;RA0 -> Entrada analógica
+0001   0185           00021     CLRF    TRISA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0009   0189           00035     CLRF    ANSELH      ;PORTB -> como digital 
-                      00036     
-000A   1303           00037     BCF     STATUS,RP1  ;Banco 1
-000B   30FB           00038     MOVLW   B'11111011'
+0002   0186           00022     CLRF    TRISB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000C   0087           00039     MOVWF   TRISC       ;CCP1 salida
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE  2
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000D   019F           00040     CLRF    ADCON1      ;ADC -> Alineación izquierda, Vref = VDD
-                      00041    
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000E   0186           00042     CLRF    TRISB
-                      00043     
-000F   1283           00044     BCF     STATUS,RP0  ;Banco 0 
-                      00045    
-0010                  00046 START
-0010   3081           00047     MOVLW   B'10000001'
-0011   009F           00048     MOVWF   ADCON0      ;Activamos ADC, Selecciona canal AN0
-0012   130C           00049     BCF     PIR1,ADIF   ;Restauramos el flags del ADC
-0013   149F           00050     BSF     ADCON0,GO   ;Inicia la conversión
-0014                  00051 ADC_start               ;Inicia el ADC y se lee los resultados
-0014   1F0C           00052     BTFSS   PIR1,ADIF   ;Pregunta si se acabó con la conversión
-0015   2???           00053     GOTO    ADC_start   ;Si aún no se acabó regresa a ADC_start
-                      00054    
-0016   301F           00055     MOVLW   B'00011111'
-                      00056     
-0017   081E           00057     MOVF    ADRESH,W
-                      00058     
-0018   0086           00059     MOVWF    PORTB
-                      00060     ;GOTO    START
-0019   00A0           00061     MOVWF   Duty_On     ;Registra el valor para el periodo
-001A   1683           00062     BSF     STATUS,RP0  ;Banco 1
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-001B   0C9E           00063     RRF     ADRESL,F    ;Hace un corrimiento a la derecha aumentando 1
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-001C   0C1E           00064     RRF     ADRESL,W
-001D   1283           00065     BCF     STATUS,RP0  ;Banco 0
-001E   3930           00066     ANDLW   B'00110000'
-001F   00A1           00067     MOVWF   Duty_Off    ;Se guarda la conversión más baja en Duty_Off
-                      00068 ;;Configuración PWM
-                      00069 ;    MOVLW   B'00001100'
-                      00070 ;    IORWF   Duty_Off,F ;Se obtienen los valores del Duty_Off
-                      00071 ;    MOVWF   CCP1CON    ;Modo PWM para el CCP1
-                      00072 ;;Registro PR2
-                      00073 ;    MOVLW   Periodo-1
-                      00074 ;    BSF            STATUS,RP0
-                      00075 ;    MOVWF   PR2                ;Periodo se guarda en el PR2
-                      00076 ;    BCF            STATUS,RP0
-                      00077 ;;Anchura del pulso
-                      00078 ;    MOVF    Duty_On,W  ;Guardamos Duty_On -> W
-                      00079 ;    MOVWF   CCPR1L     ;Y se determina concatenando en el registro CCPR1L
-                      00080 ;;Prescaler
-                      00081 ;    MOVLW   B'00000111'        ;Prescaler 1:16 y frecuencia de 20MHz 
-                      00082 ;    MOVWF   T2CON
-0020   2???           00083     GOTO    START       ;
-3FFF 3FFF             00084     END
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE  3
+0003   0187           00023     CLRF    TRISC
+0004   1283           00024     BCF     STATUS,RP0  ;Banco 0
+                      00025 
+0005   3000           00026     MOVLW   B'00000000'
+0006   0085           00027     MOVWF   PORTA
+0007   0086           00028     MOVWF   PORTB
+0008   0087           00029     MOVWF   PORTC
+                      00030 
+0009   30FF           00031     MOVLW   B'11111111'
+000A   0085           00032     MOVWF   PORTA
+000B   0086           00033     MOVWF   PORTB
+000C   0087           00034     MOVWF   PORTC
+                      00035     
+000D                  00036 INICIO      
+000D   2???           00037       GOTO  INICIO
+3FFF 3FFF             00038       END
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE  2
 
 
 SYMBOL TABLE
@@ -127,7 +71,6 @@ ADCON0                            0000001F
 ADCON1                            0000009F
 ADCS0                             00000006
 ADCS1                             00000007
-ADC_start                         00000014
 ADDEN                             00000003
 ADFM                              00000007
 ADIE                              00000006
@@ -171,13 +114,13 @@ BRG8                              00000000
 BRG9                              00000001
 BRGH                              00000002
 C                                 00000000
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE  4
+C1CH0                             00000000
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE  3
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-C1CH0                             00000000
 C1CH1                             00000001
 C1IE                              00000005
 C1IF                              00000005
@@ -230,13 +173,13 @@ CHS2                              00000004
 CHS3                              00000005
 CKE                               00000006
 CKP                               00000004
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE  5
+CM1CON0                           00000107
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE  4
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-CM1CON0                           00000107
 CM2CON0                           00000108
 CM2CON1                           00000109
 CREN                              00000004
@@ -250,8 +193,6 @@ DC2B0                             00000004
 DC2B1                             00000005
 D_A                               00000005
 D_NOT_A                           00000005
-Duty_Off                          00000021
-Duty_On                           00000020
 ECCPAS                            0000009C
 ECCPAS0                           00000004
 ECCPAS1                           00000005
@@ -282,22 +223,22 @@ I2C_READ                          00000002
 I2C_START                         00000003
 I2C_STOP                          00000004
 INDF                              00000000
-INICIO                            00000005
+INICIO                            0000000D
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
 INTF                              00000001
 IOCB                              00000096
 IOCB0                             00000000
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE  6
+IOCB1                             00000001
+IOCB2                             00000002
+IOCB3                             00000003
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE  5
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-IOCB1                             00000001
-IOCB2                             00000002
-IOCB3                             00000003
 IOCB4                             00000004
 IOCB5                             00000005
 IOCB6                             00000006
@@ -348,15 +289,15 @@ PCON                              0000008E
 PDC0                              00000000
 PDC1                              00000001
 PDC2                              00000002
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE  7
+PDC3                              00000003
+PDC4                              00000004
+PDC5                              00000005
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE  6
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-PDC3                              00000003
-PDC4                              00000004
-PDC5                              00000005
 PDC6                              00000006
 PEIE                              00000006
 PEN                               00000002
@@ -382,7 +323,6 @@ PSTRCON                           0000009D
 PULSR                             00000002
 PULSS                             00000003
 PWM1CON                           0000009B
-Periodo                           00000064
 R                                 00000002
 RA0                               00000000
 RA1                               00000001
@@ -407,16 +347,16 @@ RC1                               00000001
 RC2                               00000002
 RC3                               00000003
 RC4                               00000004
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE  8
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE  7
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-RC5                               00000005
-RC6                               00000006
-RC7                               00000007
-RC8_9                             00000006
 RC9                               00000006
 RCD8                              00000000
 RCEN                              00000003
@@ -463,20 +403,19 @@ SSPM3                             00000003
 SSPMSK                            00000093
 SSPOV                             00000006
 SSPSTAT                           00000094
-START                             00000010
 STATUS                            00000003
 STRA                              00000000
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE  9
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 STRB                              00000001
 STRC                              00000002
 STRD                              00000003
 STRSYNC                           00000004
 SWDTEN                            00000000
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 SYNC                              00000004
 T0CS                              00000005
 T0IE                              00000005
@@ -525,17 +464,17 @@ TRISA7                            00000007
 TRISB                             00000086
 TRISB0                            00000000
 TRISB1                            00000001
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE 10
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TRISB2                            00000002
 TRISB3                            00000003
 TRISB4                            00000004
 TRISB5                            00000005
 TRISB6                            00000006
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TRISB7                            00000007
 TRISC                             00000087
 TRISC0                            00000000
@@ -584,17 +523,17 @@ WDTCON                            00000105
 WDTPS0                            00000001
 WDTPS1                            00000002
 WDTPS2                            00000003
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE 11
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 WDTPS3                            00000004
 WPUB                              00000095
 WPUB0                             00000000
 WPUB1                             00000001
 WPUB2                             00000002
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 WPUB3                             00000003
 WPUB4                             00000004
 WPUB5                             00000005
@@ -643,17 +582,17 @@ _FOSC_LP                          00003FF8
 _FOSC_XT                          00003FF9
 _HS_OSC                           00003FFA
 _IDLOC0                           00002000
-MPASM 5.72                          MAIN.ASM   4-17-2021  15:06:36         PAGE 12
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _IDLOC1                           00002001
 _IDLOC2                           00002002
 _IDLOC3                           00002003
 _IESO_OFF                         00003BFF
 _IESO_ON                          00003FFF
+MPASM 5.72                          MAIN.ASM   4-17-2021  19:30:06         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _INTOSC                           00003FFD
 _INTOSCIO                         00003FFC
 _INTRC_OSC_CLKOUT                 00003FFD
@@ -680,6 +619,6 @@ __MPLAB_DEBUGGER_SIMULATOR        1
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :     7 reported,     0 suppressed
+Messages :     3 reported,     0 suppressed
 
 

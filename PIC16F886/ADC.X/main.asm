@@ -52,12 +52,14 @@ ADC_start		;Inicia el ADC y se lee los resultados
     BTFSS   PIR1,ADIF	;Pregunta si se acabó con la conversión
     GOTO    ADC_start	;Si aún no se acabó regresa a ADC_start
    
-    MOVLW   B'00011111'
+    ;MOVLW   B'00011111'
     
     MOVF    ADRESH,W
     
     MOVWF    PORTB
-    ;GOTO    START
+    NOP
+    NOP
+    GOTO    START
     MOVWF   Duty_On	;Registra el valor para el periodo
     BSF	    STATUS,RP0	;Banco 1
     RRF	    ADRESL,F	;Hace un corrimiento a la derecha aumentando 1
