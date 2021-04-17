@@ -1,4 +1,4 @@
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE  1
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -35,55 +35,60 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00018 
                       00019     ORG 0
 0000                  00020 INICIO:
-0000   1683           00021     BSF STATUS,RP0              ;Banco 1
+0000   1683           00021     BSF STATUS,5                ;Banco 1
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0001   1405           00022     BSF TRISA,TRISA0            ;PORTA0 Entrada 
+0001   1405           00022     BSF TRISA,0         ;PORTA0 Entrada 
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0002   0187           00023     CLRF    TRISC               ;PORTC Salida
                       00024     
-0003   1283           00025     BCF     STATUS,RP0  ;Banco 0
+0003   1283           00025     BCF     STATUS,5    ;Banco 0
                       00026  
-0004   3081           00027     MOVLW   B'10000001'
+0004   30C5           00027     MOVLW   B'11000101'
 0005   009F           00028     MOVWF   ADCON0              ;10=Fosc/32
                       00029                                 ;0000=AN0
                       00030                                 ;0=A/D conversion completed/not in progress
                       00031                                 ;1 =1 = ADC is enabled
                       00032 
-0006   1683           00033     BSF STATUS,RP0              ;Banco 1
-0007                  00034 PRINCIPAL:
-0007   081E           00035     MOVF    ADRESH,0
-0008   0087           00036     MOVWF   PORTC
-0009   2???           00037     CALL    DELAY
-000A   149F           00038     BSF     ADCON0,GO_DONE
-000B   2???           00039     GOTO    PRINCIPAL
-                      00040     
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE  2
+0006   1683           00033     BSF STATUS,5                ;Banco 1
+0007   300E           00034     MOVLW   B'00001110'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0008   009F           00035     MOVWF   ADCON1
+0009   1283           00036     BCF     STATUS,5 
+                      00037     
+000A                  00038 PRINCIPAL:
+000A   081E           00039     MOVF    ADRESH,0
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-000C                  00041 DELAY
-000C   3005           00042     MOVLW   D'5'
-000D   00A2           00043     MOVWF   O
-000E                  00044 TRES
-000E   3050           00045         MOVLW   D'80'
-000F   00A0           00046         MOVWF   M
-0010                  00047 DOS
-0010   30FA           00048         MOVLW   D'250'
-0011   00A1           00049         MOVWF   N
-0012                  00050 UNO
-0012   0000           00051         NOP
-0013   0000           00052         NOP
-0014   0BA1           00053         DECFSZ  N,1
-0015   2???           00054         GOTO    UNO
-0016   0BA0           00055         DECFSZ  M,1
-0017   2???           00056         GOTO    DOS
-0018   0BA2           00057         DECFSZ  O,1
-0019   2???           00058         GOTO    TRES
-001A   0008           00059         RETURN
-3FFF 3FFF             00060     END
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE  3
+000B   0087           00040     MOVWF   PORTC
+000C   2???           00041     CALL    DELAY
+000D   149F           00042     BSF     ADCON0,GO_DONE
+000E   2???           00043     GOTO    PRINCIPAL
+                      00044     
+000F                  00045 DELAY
+000F   3005           00046     MOVLW   D'5'
+0010   00A2           00047     MOVWF   O
+0011                  00048 TRES
+0011   3050           00049         MOVLW   D'80'
+0012   00A0           00050         MOVWF   M
+0013                  00051 DOS
+0013   30FA           00052         MOVLW   D'250'
+0014   00A1           00053         MOVWF   N
+0015                  00054 UNO
+0015   0000           00055         NOP
+0016   0000           00056         NOP
+0017   0BA1           00057         DECFSZ  N,1
+0018   2???           00058         GOTO    UNO
+0019   0BA0           00059         DECFSZ  M,1
+001A   2???           00060         GOTO    DOS
+001B   0BA2           00061         DECFSZ  O,1
+001C   2???           00062         GOTO    TRES
+001D   0008           00063         RETURN
+3FFF 3FFF             00064     END
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE  3
 
 
 SYMBOL TABLE
@@ -142,7 +147,7 @@ BRG9                              00000001
 BRGH                              00000002
 C                                 00000000
 C1CH0                             00000000
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE  4
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE  4
 
 
 SYMBOL TABLE
@@ -201,7 +206,7 @@ CHS3                              00000005
 CKE                               00000006
 CKP                               00000004
 CM1CON0                           00000107
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE  5
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE  5
 
 
 SYMBOL TABLE
@@ -218,8 +223,8 @@ DC1B0                             00000004
 DC1B1                             00000005
 DC2B0                             00000004
 DC2B1                             00000005
-DELAY                             0000000C
-DOS                               00000010
+DELAY                             0000000F
+DOS                               00000013
 D_A                               00000005
 D_NOT_A                           00000005
 ECCPAS                            0000009C
@@ -260,7 +265,7 @@ INTF                              00000001
 IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE  6
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE  6
 
 
 SYMBOL TABLE
@@ -319,7 +324,7 @@ PCL                               00000002
 PCLATH                            0000000A
 PCON                              0000008E
 PDC0                              00000000
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE  7
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE  7
 
 
 SYMBOL TABLE
@@ -342,7 +347,7 @@ PORTB                             00000006
 PORTC                             00000007
 PORTE                             00000009
 PR2                               00000092
-PRINCIPAL                         00000007
+PRINCIPAL                         0000000A
 PRSEN                             00000007
 PS0                               00000000
 PS1                               00000001
@@ -378,7 +383,7 @@ RBIF                              00000000
 RC0                               00000000
 RC1                               00000001
 RC2                               00000002
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE  8
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE  8
 
 
 SYMBOL TABLE
@@ -437,7 +442,7 @@ SSPMSK                            00000093
 SSPOV                             00000006
 SSPSTAT                           00000094
 STATUS                            00000003
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE  9
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE  9
 
 
 SYMBOL TABLE
@@ -485,7 +490,7 @@ TOUTPS0                           00000003
 TOUTPS1                           00000004
 TOUTPS2                           00000005
 TOUTPS3                           00000006
-TRES                              0000000E
+TRES                              00000011
 TRISA                             00000085
 TRISA0                            00000000
 TRISA1                            00000001
@@ -496,7 +501,7 @@ TRISA5                            00000005
 TRISA6                            00000006
 TRISA7                            00000007
 TRISB                             00000086
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE 10
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE 10
 
 
 SYMBOL TABLE
@@ -540,7 +545,7 @@ UA                                00000001
 ULPWUE                            00000005
 ULPWUIE                           00000002
 ULPWUIF                           00000002
-UNO                               00000012
+UNO                               00000015
 VCFG0                             00000004
 VCFG1                             00000005
 VR0                               00000000
@@ -555,7 +560,7 @@ VRSS                              00000004
 W                                 00000000
 WCOL                              00000007
 WDTCON                            00000105
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE 11
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE 11
 
 
 SYMBOL TABLE
@@ -614,7 +619,7 @@ _FOSC_HS                          00003FFA
 _FOSC_INTRC_CLKOUT                00003FFD
 _FOSC_INTRC_NOCLKOUT              00003FFC
 _FOSC_LP                          00003FF8
-MPASM 5.72                          MAIN.ASM   4-16-2021  20:41:16         PAGE 12
+MPASM 5.72                          MAIN.ASM   4-17-2021  11:06:32         PAGE 12
 
 
 SYMBOL TABLE
@@ -652,6 +657,6 @@ __16F886                          00000001
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :     2 reported,     0 suppressed
+Messages :     3 reported,     0 suppressed
 
 
