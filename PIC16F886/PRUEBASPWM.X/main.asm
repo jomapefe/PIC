@@ -18,22 +18,27 @@ O	EQU 0X22
 
     ORG 0
 INICIO:
-    BSF	STATUS,5		;Banco 1
-    BSF	TRISA,0		;PORTA0 Entrada	
-    CLRF    TRISC		;PORTC Salida
-    
-    BCF	    STATUS,5	;Banco 0
- 
-    MOVLW   B'11000101'
-    MOVWF   ADCON0		;10=Fosc/32
-				;0000=AN0
-				;0=A/D conversion completed/not in progress
-				;1 =1 = ADC is enabled
+	BCF	    STATUS,RP1
+	BSF	    STATUS,RP0		;Banco 1
+	BSF	    TRISA,TRISA0		;PORTA0 Entrada	
+	CLRF	    TRISC		;PORTC Salida
 
-    BSF	STATUS,5		;Banco 1
-    MOVLW   B'00001110'
-    MOVWF   ADCON1
-    BCF	    STATUS,5 
+	BCF	    STATUS,RP1
+	BCF	    STATUS,RP0		;Banco 0
+ 
+        MOVLW   B'10000101'
+        MOVWF   ADCON0		;10=Fosc/32
+				;0000=AN0
+				;0=A/D conversion detenida
+				;1 =1 = ADC is activada
+
+ 	BCF	    STATUS,RP1
+	BSF	    STATUS,RP0		;Banco 1
+        MOVLW   B'00001110'
+	MOVWF   ADCON1
+	
+	BCF	    STATUS,RP1
+	BCF	    STATUS,RP0		;Banco 0
     
 PRINCIPAL:
     MOVF    ADRESH,0
