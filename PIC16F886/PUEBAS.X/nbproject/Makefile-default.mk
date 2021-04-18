@@ -83,7 +83,7 @@ ifneq ($(INFORMATION_MESSAGE), )
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/PUEBAS.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
-MP_PROCESSOR_OPTION=16f886
+MP_PROCESSOR_OPTION=16f877a
 MP_LINKER_DEBUG_OPTION= 
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble

@@ -1,5 +1,12 @@
-Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 22 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 23 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 27 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 8 : Found label after column 1. (Periodo)
+Error[128]   D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 8 : Missing argument(s)
+Error[128]   D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 8 : Missing argument(s)
+Warning[207] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 11 : Found label after column 1. (Duty_On)
+Warning[207] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 12 : Found label after column 1. (Duty_Off)
+Error[113]   D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 24 : Symbol not previously defined (ANSEL)
+Error[113]   D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 25 : Symbol not previously defined (ANSELH)
 Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 28 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 29 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 31 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 44 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 45 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PUEBAS.X\MAIN.ASM 56 : Register in operand not in bank 0.  Ensure that bank bits are correct.
