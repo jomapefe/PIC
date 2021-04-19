@@ -28,27 +28,26 @@ Contador     equ    0x22
     ORG	    5
 
 INICIO
-    BSF	    STATUS,RP0
-    BSF	    STATUS,RP1	;Banco 3
+    BSF	    STATUS,RP0	    
+    BSF	    STATUS,RP1	    ;Banco 3
     MOVLW   B'00000001'	
     MOVWF   ANSEL	;AN0 -> Entrada analógica
     CLRF    ANSELH	;PORTB -> como digital 
     
     
     BCF	    STATUS,RP1	;Banco 1
-    MOVLW   B'11111011'
-   ; MOVWF   TRISC	;CCP1 salida
-    ;MOVWF   TRISB
-    CLRF    TRISB
-    CLRF    TRISC
-    
+    MOVLW   B'00000001'
+    MOVWF   TRISA	    ;RA0 entrada, RA1:RA salidas
+    CLRF    TRISB	    ;PORTB salidas
+    CLRF    TRISC	    ;PORTC salidas
+     
     CLRF    ADCON1	;ADC -> Alineación izquierda, Vref = VDD
 			;VCFG0 = 0
 			;VCFG1 = 0
 			;ADCON1 = 0
 			;ADFM = 0
    
-    CLRF    TRISB
+  
     
     BCF	    STATUS,RP0	;Banco 0 
    
@@ -75,6 +74,7 @@ ADC_start		    ;Inicia el ADC y se lee los resultados
     MOVF    ADRESL,W
     BCF	    STATUS,RP0	    ;Banco 0
     MOVWF   PORTB
+    
    
 ;    BSF	    STATUS,RP0	    ;Banco 1
 ;    RRF	    ADRESL,F	    ;Hace un corrimiento a la derecha aumentando 1

@@ -1,4 +1,4 @@
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE  1
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -45,8 +45,8 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00028     ORG     5
                       00029 
 0005                  00030 INICIO
-0005   1683           00031     BSF     STATUS,RP0
-0006   1703           00032     BSF     STATUS,RP1  ;Banco 3
+0005   1683           00031     BSF     STATUS,RP0      
+0006   1703           00032     BSF     STATUS,RP1      ;Banco 3
 0007   3001           00033     MOVLW   B'00000001' 
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0008   0088           00034     MOVWF   ANSEL       ;AN0 -> Entrada analógica
@@ -55,56 +55,56 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00036     
                       00037     
 000A   1303           00038     BCF     STATUS,RP1  ;Banco 1
-000B   30FB           00039     MOVLW   B'11111011'
-                      00040    ; MOVWF   TRISC      ;CCP1 salida
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE  2
+000B   3001           00039     MOVLW   B'00000001'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00041     ;MOVWF   TRISB
+000C   0085           00040     MOVWF   TRISA           ;RA0 entrada, RA1:RA salidas
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000C   0186           00042     CLRF    TRISB
+000D   0186           00041     CLRF    TRISB           ;PORTB salidas
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000D   0187           00043     CLRF    TRISC
-                      00044     
+000E   0187           00042     CLRF    TRISC           ;PORTC salidas
+                      00043      
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000E   019F           00045     CLRF    ADCON1      ;ADC -> Alineación izquierda, Vref = VDD
-                      00046                         ;VCFG0 = 0
-                      00047                         ;VCFG1 = 0
-                      00048                         ;ADCON1 = 0
-                      00049                         ;ADFM = 0
-                      00050    
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000F   0186           00051     CLRF    TRISB
-                      00052     
-0010   1283           00053     BCF     STATUS,RP0  ;Banco 0 
-                      00054    
-0011                  00055 START
-0011   3081           00056     MOVLW   B'10000001'
-0012   009F           00057     MOVWF   ADCON0          ;Activamos ADC, Selecciona canal AN0
-                      00058                             ;ADCS = 10 FOSC/32
-                      00059                             ;CHS = 0000 AN0
-                      00060                             ;GO = 0 Conversion parada
-                      00061                             ;ADON =1 ADC habilitado
+000F   019F           00044     CLRF    ADCON1      ;ADC -> Alineación izquierda, Vref = VDD
+                      00045                         ;VCFG0 = 0
+                      00046                         ;VCFG1 = 0
+                      00047                         ;ADCON1 = 0
+                      00048                         ;ADFM = 0
+                      00049    
+                      00050   
+                      00051     
+0010   1283           00052     BCF     STATUS,RP0  ;Banco 0 
+                      00053    
+0011                  00054 START
+0011   3081           00055     MOVLW   B'10000001'
+0012   009F           00056     MOVWF   ADCON0          ;Activamos ADC, Selecciona canal AN0
+                      00057                             ;ADCS = 10 FOSC/32
+                      00058                             ;CHS = 0000 AN0
+                      00059                             ;GO = 0 Conversion parada
+                      00060                             ;ADON =1 ADC habilitado
+                      00061     
                       00062     
-                      00063     
-0013   130C           00064     BCF     PIR1,ADIF       ;Restauramos el flags del ADC
-0014   2???           00065     call    Demora_20us     ;Le damos un tiempo para que realice la conversion
-0015   149F           00066     BSF     ADCON0,GO       ;Inicia la conversión
-0016                  00067 ADC_start                   ;Inicia el ADC y se lee los resultados
-0016   1F0C           00068     BTFSS   PIR1,ADIF       ;Pregunta si se acabó con la conversión
-0017   2???           00069     GOTO    ADC_start       ;Si aún no se acabó regresa a ADC_start
-0018   081E           00070     MOVF    ADRESH,W        ;Lee el resutadfo de la conversion
-0019   00A0           00071     MOVWF   valorH          ;Guarda el valor de ADRESH en una variable
-001A   0087           00072     MOVWF   PORTC
-                      00073     
-001B   1683           00074     BSF     STATUS,RP0      ;Banco 1
+0013   130C           00063     BCF     PIR1,ADIF       ;Restauramos el flags del ADC
+0014   2???           00064     call    Demora_20us     ;Le damos un tiempo para que realice la conversion
+0015   149F           00065     BSF     ADCON0,GO       ;Inicia la conversión
+0016                  00066 ADC_start                   ;Inicia el ADC y se lee los resultados
+0016   1F0C           00067     BTFSS   PIR1,ADIF       ;Pregunta si se acabó con la conversión
+0017   2???           00068     GOTO    ADC_start       ;Si aún no se acabó regresa a ADC_start
+0018   081E           00069     MOVF    ADRESH,W        ;Lee el resutadfo de la conversion
+0019   00A0           00070     MOVWF   valorH          ;Guarda el valor de ADRESH en una variable
+001A   0087           00071     MOVWF   PORTC
+                      00072     
+001B   1683           00073     BSF     STATUS,RP0      ;Banco 1
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-001C   081E           00075     MOVF    ADRESL,W
-001D   1283           00076     BCF     STATUS,RP0      ;Banco 0
-001E   0086           00077     MOVWF   PORTB
+001C   081E           00074     MOVF    ADRESL,W
+001D   1283           00075     BCF     STATUS,RP0      ;Banco 0
+001E   0086           00076     MOVWF   PORTB
+                      00077     
                       00078    
                       00079 ;    BSF            STATUS,RP0      ;Banco 1
                       00080 ;    RRF            ADRESL,F        ;Hace un corrimiento a la derecha aumentando 1
@@ -116,7 +116,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00086 ;    
                       00087     
                       00088     
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE  3
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -151,7 +151,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0024   0008           00115         return                          ; Regresa de la subrutina.-
                       00116 ;
 3FFF 3FFF             00117     END
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE  4
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE  4
 
 
 SYMBOL TABLE
@@ -210,7 +210,7 @@ BRG8                              00000000
 BRG9                              00000001
 BRGH                              00000002
 C                                 00000000
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE  5
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE  5
 
 
 SYMBOL TABLE
@@ -269,7 +269,7 @@ CHS2                              00000004
 CHS3                              00000005
 CKE                               00000006
 CKP                               00000004
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE  6
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE  6
 
 
 SYMBOL TABLE
@@ -328,7 +328,7 @@ INTEDG                            00000006
 INTF                              00000001
 IOCB                              00000096
 IOCB0                             00000000
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE  7
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE  7
 
 
 SYMBOL TABLE
@@ -387,7 +387,7 @@ PCON                              0000008E
 PDC0                              00000000
 PDC1                              00000001
 PDC2                              00000002
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE  8
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE  8
 
 
 SYMBOL TABLE
@@ -446,7 +446,7 @@ RC1                               00000001
 RC2                               00000002
 RC3                               00000003
 RC4                               00000004
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE  9
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE  9
 
 
 SYMBOL TABLE
@@ -505,7 +505,7 @@ SSPOV                             00000006
 SSPSTAT                           00000094
 START                             00000011
 STATUS                            00000003
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE 10
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE 10
 
 
 SYMBOL TABLE
@@ -564,7 +564,7 @@ TRISA6                            00000006
 TRISA7                            00000007
 TRISB                             00000086
 TRISB0                            00000000
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE 11
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE 11
 
 
 SYMBOL TABLE
@@ -623,7 +623,7 @@ WCOL                              00000007
 WDTCON                            00000105
 WDTPS0                            00000001
 WDTPS1                            00000002
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE 12
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE 12
 
 
 SYMBOL TABLE
@@ -682,7 +682,7 @@ _FOSC_INTRC_NOCLKOUT              00003FFC
 _FOSC_LP                          00003FF8
 _FOSC_XT                          00003FF9
 _HS_OSC                           00003FFA
-MPASM 5.72                          MAIN.ASM   4-19-2021  15:02:46         PAGE 13
+MPASM 5.72                          MAIN.ASM   4-19-2021  22:26:31         PAGE 13
 
 
 SYMBOL TABLE
