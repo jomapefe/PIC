@@ -1,5 +1,5 @@
 MPLINK 5.08, LINKER
-Linker Map File - Created Sun Apr 18 20:46:18 2021
+Linker Map File - Created Mon Apr 19 15:02:47 2021
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -25,11 +25,11 @@ Linker Map File - Created Sun Apr 18 20:46:18 2021
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                ADC_start   0x000015    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+                ADC_start   0x000016    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
               Demora_20us   0x000020    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
                    INICIO   0x000005    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
                Repeticion   0x000022    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-                    START   0x000010    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+                    START   0x000011    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
 
 
 
@@ -37,8 +37,8 @@ Linker Map File - Created Sun Apr 18 20:46:18 2021
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
                    INICIO   0x000005    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-                    START   0x000010    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-                ADC_start   0x000015    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+                    START   0x000011    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+                ADC_start   0x000016    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
               Demora_20us   0x000020    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
                Repeticion   0x000022    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
 

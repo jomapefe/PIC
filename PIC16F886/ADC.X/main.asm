@@ -18,8 +18,8 @@
 Periodo	    equ	    .100 ;.300	
 ;Periodo = (PR2+1)*Prescaler*4*Tosc
 	    
-valor1	    equ	    0x20	;Vairalbes de ancho de pulso
-valor2    equ	    0x21
+valorH	    equ	    0x20	;Vairalbes de ancho de pulso
+valorL    equ	    0x21
 Contador     equ    0x22	    
     
 ;CODIGO    
@@ -37,13 +37,16 @@ INICIO
     
     BCF	    STATUS,RP1	;Banco 1
     MOVLW   B'11111011'
-    MOVWF   TRISC	;CCP1 salida
-    
+   ; MOVWF   TRISC	;CCP1 salida
+    ;MOVWF   TRISB
+    CLRF    TRISB
+    CLRF    TRISC
     
     CLRF    ADCON1	;ADC -> Alineación izquierda, Vref = VDD
-			;VCFG0=0
-			;VCFG1=0
-			;ADCON1=0
+			;VCFG0 = 0
+			;VCFG1 = 0
+			;ADCON1 = 0
+			;ADFM = 0
    
     CLRF    TRISB
     
@@ -51,23 +54,36 @@ INICIO
    
 START
     MOVLW   B'10000001'
-    MOVWF   ADCON0	;Activamos ADC, Selecciona canal AN0
-    BCF	    PIR1,ADIF	;Restauramos el flags del ADC
-    call    Demora_20us
-    BSF	    ADCON0,GO	;Inicia la conversión
-ADC_start		;Inicia el ADC y se lee los resultados
-    BTFSS   PIR1,ADIF	;Pregunta si se acabó con la conversión
-    GOTO    ADC_start	;Si aún no se acabó regresa a ADC_start
-     MOVF    ADRESH,W
+    MOVWF   ADCON0	    ;Activamos ADC, Selecciona canal AN0
+			    ;ADCS = 10 FOSC/32
+			    ;CHS = 0000 AN0
+			    ;GO = 0 Conversion parada
+			    ;ADON =1 ADC habilitado
     
-    MOVWF   valor1	;Registra el valor para el periodo
-    BSF	    STATUS,RP0	;Banco 1
-    RRF	    ADRESL,F	;Hace un corrimiento a la derecha aumentando 1
-    RRF	    ADRESL,W
-    BCF	    STATUS,RP0	;Banco 0
-    ANDLW   B'00110000'
-    MOVWF   valor2	;Se guarda la conversión más baja en Duty_Off
-
+    
+    BCF	    PIR1,ADIF	    ;Restauramos el flags del ADC
+    call    Demora_20us	    ;Le damos un tiempo para que realice la conversion
+    BSF	    ADCON0,GO	    ;Inicia la conversión
+ADC_start		    ;Inicia el ADC y se lee los resultados
+    BTFSS   PIR1,ADIF	    ;Pregunta si se acabó con la conversión
+    GOTO    ADC_start	    ;Si aún no se acabó regresa a ADC_start
+    MOVF    ADRESH,W	    ;Lee el resutadfo de la conversion
+    MOVWF   valorH	    ;Guarda el valor de ADRESH en una variable
+    MOVWF   PORTC
+    
+    BSF	    STATUS,RP0	    ;Banco 1
+    MOVF    ADRESL,W
+    BCF	    STATUS,RP0	    ;Banco 0
+    MOVWF   PORTB
+   
+;    BSF	    STATUS,RP0	    ;Banco 1
+;    RRF	    ADRESL,F	    ;Hace un corrimiento a la derecha aumentando 1
+;    RRF	    ADRESL,W
+;    
+;    BCF	    STATUS,RP0	;Banco 0
+;    ANDLW   B'00110000'
+;    MOVWF   valorL	;Se guarda la conversión más baja en Duty_Off
+;    
     
     
 ;    ;Configuración PWM
