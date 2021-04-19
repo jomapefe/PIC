@@ -1,4 +1,4 @@
-MPASM 5.72                          MAIN.ASM   4-19-2021  19:56:36         PAGE  1
+MPASM 5.72                          MAIN.ASM   4-20-2021  0:23:14         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0010   1497           00038         BSF     CCP1CON,1
 0011   1417           00039         BSF     CCP1CON,0
 0012                  00040 START
-MPASM 5.72                          MAIN.ASM   4-19-2021  19:56:36         PAGE  2
+MPASM 5.72                          MAIN.ASM   4-20-2021  0:23:14         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -68,7 +68,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00043 
                       00044 
 3F32                  00045         END
-MPASM 5.72                          MAIN.ASM   4-19-2021  19:56:36         PAGE  3
+MPASM 5.72                          MAIN.ASM   4-20-2021  0:23:14         PAGE  3
 
 
 SYMBOL TABLE
@@ -127,7 +127,7 @@ CHS1                              00000004
 CHS2                              00000005
 CIS                               00000003
 CKE                               00000006
-MPASM 5.72                          MAIN.ASM   4-19-2021  19:56:36         PAGE  4
+MPASM 5.72                          MAIN.ASM   4-20-2021  0:23:14         PAGE  4
 
 
 SYMBOL TABLE
@@ -186,7 +186,7 @@ INTEDG                            00000006
 INTF                              00000001
 IRP                               00000007
 NOT_A                             00000005
-MPASM 5.72                          MAIN.ASM   4-19-2021  19:56:36         PAGE  5
+MPASM 5.72                          MAIN.ASM   4-20-2021  0:23:14         PAGE  5
 
 
 SYMBOL TABLE
@@ -245,7 +245,7 @@ RA5                               00000005
 RB0                               00000000
 RB1                               00000001
 RB2                               00000002
-MPASM 5.72                          MAIN.ASM   4-19-2021  19:56:36         PAGE  6
+MPASM 5.72                          MAIN.ASM   4-20-2021  0:23:14         PAGE  6
 
 
 SYMBOL TABLE
@@ -304,7 +304,7 @@ SSPADD                            00000093
 SSPBUF                            00000013
 SSPCON                            00000014
 SSPCON2                           00000091
-MPASM 5.72                          MAIN.ASM   4-19-2021  19:56:36         PAGE  7
+MPASM 5.72                          MAIN.ASM   4-20-2021  0:23:14         PAGE  7
 
 
 SYMBOL TABLE
@@ -363,7 +363,7 @@ TRISA5                            00000005
 TRISB                             00000086
 TRISB0                            00000000
 TRISB1                            00000001
-MPASM 5.72                          MAIN.ASM   4-19-2021  19:56:36         PAGE  8
+MPASM 5.72                          MAIN.ASM   4-20-2021  0:23:14         PAGE  8
 
 
 SYMBOL TABLE
@@ -422,7 +422,7 @@ _CONFIG                           00002007
 _CPD_OFF                          00003FFF
 _CPD_ON                           00003EFF
 _CP_ALL                           00001FFF
-MPASM 5.72                          MAIN.ASM   4-19-2021  19:56:36         PAGE  9
+MPASM 5.72                          MAIN.ASM   4-20-2021  0:23:14         PAGE  9
 
 
 SYMBOL TABLE

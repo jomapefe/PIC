@@ -1,5 +1,5 @@
 MPLINK 5.08, LINKER
-Linker Map File - Created Mon Apr 19 19:56:37 2021
+Linker Map File - Created Tue Apr 20 00:23:16 2021
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -22,15 +22,15 @@ Linker Map File - Created Mon Apr 19 19:56:37 2021
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                   INICIO   0x000001    program     static D:\GitHub\PIC\PIC\PWR\PWM.X\main.asm
-                    START   0x000012    program     static D:\GitHub\PIC\PIC\PWR\PWM.X\main.asm
+                   INICIO   0x000001    program     static F:\GitHub\PIC\PIC\PWR\PWM.X\main.asm
+                    START   0x000012    program     static F:\GitHub\PIC\PIC\PWR\PWM.X\main.asm
 
 
 
                               Symbols - Sorted by Address
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                   INICIO   0x000001    program     static D:\GitHub\PIC\PIC\PWR\PWM.X\main.asm
-                    START   0x000012    program     static D:\GitHub\PIC\PIC\PWR\PWM.X\main.asm
+                   INICIO   0x000001    program     static F:\GitHub\PIC\PIC\PWR\PWM.X\main.asm
+                    START   0x000012    program     static F:\GitHub\PIC\PIC\PWR\PWM.X\main.asm
 
 
