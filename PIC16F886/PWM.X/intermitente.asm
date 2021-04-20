@@ -15,9 +15,9 @@
 
 REG1		EQU 	0X0c		;asigna nombre a los registros
 REG2		EQU 	0X0d		
-   
+REG3		EQU 	0X0e	   
 ;CODIGO    
-    ORG	    0
+    ORG	    0	
 
 INICIO    
    BSF	   STATUS,RP0 ;SELECCIONAR EL BANCO 1   
@@ -30,12 +30,15 @@ PRINCIPAL
 			CALL	RETARDO		;Llama a retardo
 			GOTO	PRINCIPAL	;Retorna a la etiqueta PRINCIPAL
 ;retardos
-RETARDO		MOVLW	D'011'		;carga el registro W con 255
-		MOVWF	REG2		;mover el valor de W a REG2
+RETARDO		MOVLW	b'00111111'		;carga el registro W con 255
+		MOVWF	REG3	
+BUCLE3		MOVWF	REG2		;mover el valor de W a REG2
 BUCLE2		MOVWF	REG1		;mover el valor de W a REG1
 BUCLE1		DECFSZ	REG1,F		;Decrementa REG1, salta una linea si es 0
 			GOTO	BUCLE1		;ir a la etiqueta bucle1
 			DECFSZ	REG2,F		;Decrementa REG2, salta una linea si es 0
 			GOTO	BUCLE2		;ir a al etiqueta bucle2
+			DECFSZ	REG3,F
+			GOTO	BUCLE3
 			RETURN				;retornar al lugar de donde se lo llamo
 			END					;fin de programa
