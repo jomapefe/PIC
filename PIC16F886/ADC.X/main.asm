@@ -47,15 +47,17 @@ INICIO
 			;ADCON1 = 0
 			;ADFM = 0
    
-    MOVLW	D'77'
-    MOVWF	PR2
-    
-    BCF	    STATUS,RP0	;Banco 0 
-   
-    MOVLW   B'00111110' ;80% MSB
+	;Registro PR2
+	MOVLW	D'77'
+	MOVWF	PR2	;periodo del pwm
+	;
+	BCF	    STATUS,RP0	;Banco 0 
+	;--------------------------------------
+	MOVLW   B'00111110' ;80% MSB
 	MOVWF	CCPR1L
 	BSF	CCP1CON,5 ; 1 LSB 80%
 	BCF	CCP1CON,4 ; 0
+	;--------------------------------------
 	BSF	T2CON,1 ;16 PRESCALER
 	BCF	T2CON,0
 	BSF	T2CON,2; TMR2 ON
@@ -81,6 +83,9 @@ ADC_start		    ;Inicia el ADC y se lee los resultados
     BTFSS   PIR1,ADIF	    ;Pregunta si se acabó con la conversión
     GOTO    ADC_start	    ;Si aún no se acabó regresa a ADC_start
     MOVF    ADRESH,W	    ;Lee el resutadfo de la conversion
+    
+    MOVWF	CCPR1L
+    
     MOVWF   valorH	    ;Guarda el valor de ADRESH en una variable
     MOVWF   PORTC
     
@@ -88,8 +93,21 @@ ADC_start		    ;Inicia el ADC y se lee los resultados
     MOVF    ADRESL,W
     BCF	    STATUS,RP0	    ;Banco 0
     MOVWF   PORTB
+       
+    	BSF	CCP1CON,5 ; 1 LSB 80%
+	BCF	CCP1CON,4 ; 0
+
     
-   
+
+    
+  
+    
+    
+    
+    
+    
+    
+    
 ;    BSF	    STATUS,RP0	    ;Banco 1
 ;    RRF	    ADRESL,F	    ;Hace un corrimiento a la derecha aumentando 1
 ;    RRF	    ADRESL,W

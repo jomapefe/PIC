@@ -1,12 +1,12 @@
 MPLINK 5.08, LINKER
-Linker Map File - Created Mon Apr 19 22:26:32 2021
+Linker Map File - Created Tue Apr 20 11:14:18 2021
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
                    .org_0       code   0x000000    program   0x000002
                    .cinit    romdata   0x000001    program   0x000004
-                   .org_1       code   0x000005    program   0x000040
+                   .org_1       code   0x000005    program   0x00005a
 .config_2007_BUILD/DEFAULT/PRODUCTION/MAIN.O       code   0x002007    program   0x000002
 .config_2008_BUILD/DEFAULT/PRODUCTION/MAIN.O       code   0x002008    program   0x000002
 
@@ -16,20 +16,20 @@ Linker Map File - Created Mon Apr 19 22:26:32 2021
                                Start         End      
                            ---------   ---------      
                             0x000000    0x000002      
-                            0x000005    0x000024      
+                            0x000005    0x000031      
                             0x002007    0x002008      
-            37 out of 8455 program addresses used, program memory utilization is 0%
+            50 out of 8455 program addresses used, program memory utilization is 0%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                ADC_start   0x000016    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-              Demora_20us   0x000020    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+                ADC_start   0x000023    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+              Demora_20us   0x00002d    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
                    INICIO   0x000005    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-               Repeticion   0x000022    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-                    START   0x000011    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+               Repeticion   0x00002f    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+                    START   0x00001e    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
 
 
 
@@ -37,9 +37,9 @@ Linker Map File - Created Mon Apr 19 22:26:32 2021
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
                    INICIO   0x000005    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-                    START   0x000011    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-                ADC_start   0x000016    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-              Demora_20us   0x000020    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
-               Repeticion   0x000022    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+                    START   0x00001e    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+                ADC_start   0x000023    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+              Demora_20us   0x00002d    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
+               Repeticion   0x00002f    program     static D:\GitHub\PIC\PIC\PIC16F886\ADC.X\main.asm
 
 
