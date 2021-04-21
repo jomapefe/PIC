@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=inicio.asm
+SOURCEFILES_QUOTED_IF_SPACED=decodificador_7seg.asm
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/inicio.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/inicio.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/decodificador_7seg.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/decodificador_7seg.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/inicio.o
+OBJECTFILES=${OBJECTDIR}/decodificador_7seg.o
 
 # Source Files
-SOURCEFILES=inicio.asm
+SOURCEFILES=decodificador_7seg.asm
 
 
 CFLAGS=
@@ -88,22 +88,22 @@ MP_LINKER_DEBUG_OPTION=
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/inicio.o: inicio.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/decodificador_7seg.o: decodificador_7seg.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/inicio.o.d 
-	@${RM} ${OBJECTDIR}/inicio.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/inicio.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_SIMULATOR=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/inicio.lst\" -e\"${OBJECTDIR}/inicio.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/inicio.o\" \"inicio.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/inicio.o"
-	@${FIXDEPS} "${OBJECTDIR}/inicio.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/decodificador_7seg.o.d 
+	@${RM} ${OBJECTDIR}/decodificador_7seg.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/decodificador_7seg.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_SIMULATOR=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/decodificador_7seg.lst\" -e\"${OBJECTDIR}/decodificador_7seg.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/decodificador_7seg.o\" \"decodificador_7seg.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/decodificador_7seg.o"
+	@${FIXDEPS} "${OBJECTDIR}/decodificador_7seg.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 else
-${OBJECTDIR}/inicio.o: inicio.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/decodificador_7seg.o: decodificador_7seg.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/inicio.o.d 
-	@${RM} ${OBJECTDIR}/inicio.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/inicio.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/inicio.lst\" -e\"${OBJECTDIR}/inicio.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/inicio.o\" \"inicio.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/inicio.o"
-	@${FIXDEPS} "${OBJECTDIR}/inicio.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/decodificador_7seg.o.d 
+	@${RM} ${OBJECTDIR}/decodificador_7seg.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/decodificador_7seg.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/decodificador_7seg.lst\" -e\"${OBJECTDIR}/decodificador_7seg.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/decodificador_7seg.o\" \"decodificador_7seg.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/decodificador_7seg.o"
+	@${FIXDEPS} "${OBJECTDIR}/decodificador_7seg.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 endif
 
