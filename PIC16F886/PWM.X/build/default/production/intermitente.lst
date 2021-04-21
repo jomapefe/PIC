@@ -1,4 +1,4 @@
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE  1
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -21,52 +21,60 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00779         LIST
                       00006 
                       00007 ; CONFIG1
-                      00008 ; __config 0x3FFD
-2007   3FFD           00009  __CONFIG _CONFIG1, _FOSC_INTRC_CLKOUT & _WDTE_ON & _PWRTE_OFF & _MCLRE_ON & _CP_OFF & _CPD_OFF & _BOREN
-                            _ON & _IESO_ON & _FCMEN_ON & _LVP_ON
-                      00010 ; CONFIG2
-                      00011 ; __config 0x3FFF
-2008   3FFF           00012  __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
+2007   2FE4           00008     __CONFIG _CONFIG1, _FOSC_INTRC_NOCLKOUT & _WDTE_OFF & _PWRTE_ON & _MCLRE_ON & _CP_OFF & _CPD_OFF & _
+                            BOREN_ON & _IESO_ON & _FCMEN_ON & _LVP_OFF
+                      00009 ; CONFIG2
+2008   3FFF           00010     __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
+                      00011 
+                      00012 
                       00013 
-                      00014 
-                      00015 
-  0000000C            00016 REG1            EQU     0X0c            ;asigna nombre a los registros
-  0000000D            00017 REG2            EQU     0X0d            
-  0000000E            00018 REG3            EQU     0X0e       
-                      00019 ;CODIGO    
-                      00020     ORG     0   
-                      00021 
-0000                  00022 INICIO    
-0000   1683           00023    BSF     STATUS,RP0 ;SELECCIONAR EL BANCO 1   
+  0000000C            00014 REG1            EQU     0X0c            ;asigna nombre a los registros
+  0000000D            00015 REG2            EQU     0X0d            
+  0000000E            00016 REG3            EQU     0X0e       
+                      00017 ;CODIGO    
+                      00018     ORG     0   
+                      00019 
+0000                  00020 INICIO 
+                      00021    ;BANKSEL OSCCON
+                      00022  
+                      00023     
+0000   1683           00024    BSF     STATUS,RP0 ;SELECCIONAR EL BANCO 1  
+                      00025    
+0001   3071           00026    movlw   0x71    ;Cargo valor a w 
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0001   0185           00024    CLRF     TRISA
-0002   1283           00025    BCF     STATUS,RP0
-0003                  00026 PRINCIPAL       
-0003   1605           00027                         BSF             PORTA,4         ;HIGH  a RB4
-0004   2???           00028                         CALL    RETARDO         ;llama a retardo
-0005   1205           00029                         BCF             PORTA,4         ;LOW a RB4
-0006   2???           00030                         CALL    RETARDO         ;Llama a retardo
-0007   2???           00031                         GOTO    PRINCIPAL       ;Retorna a la etiqueta PRINCIPAL
-                      00032 ;retardos
-0008   303F           00033 RETARDO         MOVLW   b'00111111'             ;carga el registro W con 255
-0009   008E           00034                 MOVWF   REG3    
-000A   008D           00035 BUCLE3          MOVWF   REG2            ;mover el valor de W a REG2
-000B   008C           00036 BUCLE2          MOVWF   REG1            ;mover el valor de W a REG1
-000C   0B8C           00037 BUCLE1          DECFSZ  REG1,F          ;Decrementa REG1, salta una linea si es 0
-000D   2???           00038                         GOTO    BUCLE1          ;ir a la etiqueta bucle1
-000E   0B8D           00039                         DECFSZ  REG2,F          ;Decrementa REG2, salta una linea si es 0
-000F   2???           00040                         GOTO    BUCLE2          ;ir a al etiqueta bucle2
-0010   0B8E           00041                         DECFSZ  REG3,F
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE  2
+0002   008F           00027    movwf   OSCCON  ;Oscilador interno 8MHz --> IRCF<2:0> = 1, CCS = 1
+                      00028 
+                      00029    
+                      00030    
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0003   0185           00031    CLRF     TRISA
+0004   1283           00032    BCF     STATUS,RP0
+0005                  00033 PRINCIPAL       
+0005   1605           00034                         BSF             PORTA,4         ;HIGH  a RB4
+0006   2???           00035                         CALL    RETARDO         ;llama a retardo
+0007   1205           00036                         BCF             PORTA,4         ;LOW a RB4
+0008   2???           00037                         CALL    RETARDO         ;Llama a retardo
+0009   2???           00038                         GOTO    PRINCIPAL       ;Retorna a la etiqueta PRINCIPAL
+                      00039 ;retardos
+000A   307F           00040 RETARDO         MOVLW   b'01111111'             ;carga el registro W con 255
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0011   2???           00042                         GOTO    BUCLE3
-0012   0008           00043                         RETURN                          ;retornar al lugar de donde se lo llamo
-3FFD 3FFF             00044                         END                                     ;fin de programa
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE  3
+000B   008E           00041                 MOVWF   REG3    
+000C   008D           00042 BUCLE3          MOVWF   REG2            ;mover el valor de W a REG2
+000D   008C           00043 BUCLE2          MOVWF   REG1            ;mover el valor de W a REG1
+000E   0B8C           00044 BUCLE1          DECFSZ  REG1,F          ;Decrementa REG1, salta una linea si es 0
+000F   2???           00045                         GOTO    BUCLE1          ;ir a la etiqueta bucle1
+0010   0B8D           00046                         DECFSZ  REG2,F          ;Decrementa REG2, salta una linea si es 0
+0011   2???           00047                         GOTO    BUCLE2          ;ir a al etiqueta bucle2
+0012   0B8E           00048                         DECFSZ  REG3,F
+0013   2???           00049                         GOTO    BUCLE3
+0014   0008           00050                         RETURN                          ;retornar al lugar de donde se lo llamo
+2FE4 3FFF             00051                         END                                     ;fin de programa
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE  3
 
 
 SYMBOL TABLE
@@ -123,15 +131,15 @@ BRG7                              00000007
 BRG8                              00000000
 BRG9                              00000001
 BRGH                              00000002
-BUCLE1                            0000000C
-BUCLE2                            0000000B
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE  4
+BUCLE1                            0000000E
+BUCLE2                            0000000D
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE  4
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-BUCLE3                            0000000A
+BUCLE3                            0000000C
 C                                 00000000
 C1CH0                             00000000
 C1CH1                             00000001
@@ -184,7 +192,7 @@ CHS0                              00000002
 CHS1                              00000003
 CHS2                              00000004
 CHS3                              00000005
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE  5
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE  5
 
 
 SYMBOL TABLE
@@ -243,7 +251,7 @@ INTEDG                            00000006
 INTF                              00000001
 IOCB                              00000096
 IOCB0                             00000000
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE  6
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE  6
 
 
 SYMBOL TABLE
@@ -302,7 +310,7 @@ PCON                              0000008E
 PDC0                              00000000
 PDC1                              00000001
 PDC2                              00000002
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE  7
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE  7
 
 
 SYMBOL TABLE
@@ -323,7 +331,7 @@ PORTB                             00000006
 PORTC                             00000007
 PORTE                             00000009
 PR2                               00000092
-PRINCIPAL                         00000003
+PRINCIPAL                         00000005
 PRSEN                             00000007
 PS0                               00000000
 PS1                               00000001
@@ -361,7 +369,7 @@ RC1                               00000001
 RC2                               00000002
 RC3                               00000003
 RC4                               00000004
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE  8
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE  8
 
 
 SYMBOL TABLE
@@ -385,7 +393,7 @@ READ_WRITE                        00000002
 REG1                              0000000C
 REG2                              0000000D
 REG3                              0000000E
-RETARDO                           00000008
+RETARDO                           0000000A
 RP0                               00000005
 RP1                               00000006
 RSEN                              00000001
@@ -420,7 +428,7 @@ SSPM2                             00000002
 SSPM3                             00000003
 SSPMSK                            00000093
 SSPOV                             00000006
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE  9
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE  9
 
 
 SYMBOL TABLE
@@ -479,7 +487,7 @@ TRISA4                            00000004
 TRISA5                            00000005
 TRISA6                            00000006
 TRISA7                            00000007
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE 10
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE 10
 
 
 SYMBOL TABLE
@@ -538,7 +546,7 @@ VRSS                              00000004
 W                                 00000000
 WCOL                              00000007
 WDTCON                            00000105
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE 11
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE 11
 
 
 SYMBOL TABLE
@@ -597,7 +605,7 @@ _FOSC_HS                          00003FFA
 _FOSC_INTRC_CLKOUT                00003FFD
 _FOSC_INTRC_NOCLKOUT              00003FFC
 _FOSC_LP                          00003FF8
-MPASM 5.72                  INTERMITENTE.ASM   4-20-2021  23:14:45         PAGE 12
+MPASM 5.72                  INTERMITENTE.ASM   4-21-2021  13:42:02         PAGE 12
 
 
 SYMBOL TABLE
@@ -635,6 +643,6 @@ __16F886                          00000001
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :     1 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
 
 
