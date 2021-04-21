@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=intermitente.asm
+SOURCEFILES_QUOTED_IF_SPACED=inicio.asm
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/intermitente.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/intermitente.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/inicio.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/inicio.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/intermitente.o
+OBJECTFILES=${OBJECTDIR}/inicio.o
 
 # Source Files
-SOURCEFILES=intermitente.asm
+SOURCEFILES=inicio.asm
 
 
 CFLAGS=
@@ -88,22 +88,22 @@ MP_LINKER_DEBUG_OPTION=
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/intermitente.o: intermitente.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/inicio.o: inicio.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/intermitente.o.d 
-	@${RM} ${OBJECTDIR}/intermitente.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/intermitente.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_SIMULATOR=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/intermitente.lst\" -e\"${OBJECTDIR}/intermitente.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/intermitente.o\" \"intermitente.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/intermitente.o"
-	@${FIXDEPS} "${OBJECTDIR}/intermitente.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/inicio.o.d 
+	@${RM} ${OBJECTDIR}/inicio.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/inicio.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_SIMULATOR=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/inicio.lst\" -e\"${OBJECTDIR}/inicio.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/inicio.o\" \"inicio.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/inicio.o"
+	@${FIXDEPS} "${OBJECTDIR}/inicio.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 else
-${OBJECTDIR}/intermitente.o: intermitente.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/inicio.o: inicio.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/intermitente.o.d 
-	@${RM} ${OBJECTDIR}/intermitente.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/intermitente.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/intermitente.lst\" -e\"${OBJECTDIR}/intermitente.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/intermitente.o\" \"intermitente.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/intermitente.o"
-	@${FIXDEPS} "${OBJECTDIR}/intermitente.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/inicio.o.d 
+	@${RM} ${OBJECTDIR}/inicio.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/inicio.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/inicio.lst\" -e\"${OBJECTDIR}/inicio.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/inicio.o\" \"inicio.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/inicio.o"
+	@${FIXDEPS} "${OBJECTDIR}/inicio.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 endif
 
