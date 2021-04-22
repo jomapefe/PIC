@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=motor.asm
+SOURCEFILES_QUOTED_IF_SPACED=motor.asm inicio.asm
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/motor.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/motor.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/motor.o ${OBJECTDIR}/inicio.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/motor.o.d ${OBJECTDIR}/inicio.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/motor.o
+OBJECTFILES=${OBJECTDIR}/motor.o ${OBJECTDIR}/inicio.o
 
 # Source Files
-SOURCEFILES=motor.asm
+SOURCEFILES=motor.asm inicio.asm
 
 
 CFLAGS=
@@ -96,6 +96,14 @@ ${OBJECTDIR}/motor.o: motor.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${DEP_GEN} -d "${OBJECTDIR}/motor.o"
 	@${FIXDEPS} "${OBJECTDIR}/motor.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
+${OBJECTDIR}/inicio.o: inicio.asm  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/inicio.o.d 
+	@${RM} ${OBJECTDIR}/inicio.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/inicio.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_SIMULATOR=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/inicio.lst\" -e\"${OBJECTDIR}/inicio.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/inicio.o\" \"inicio.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/inicio.o"
+	@${FIXDEPS} "${OBJECTDIR}/inicio.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	
 else
 ${OBJECTDIR}/motor.o: motor.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -104,6 +112,14 @@ ${OBJECTDIR}/motor.o: motor.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/motor.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/motor.lst\" -e\"${OBJECTDIR}/motor.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/motor.o\" \"motor.asm\" 
 	@${DEP_GEN} -d "${OBJECTDIR}/motor.o"
 	@${FIXDEPS} "${OBJECTDIR}/motor.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	
+${OBJECTDIR}/inicio.o: inicio.asm  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/inicio.o.d 
+	@${RM} ${OBJECTDIR}/inicio.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/inicio.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/inicio.lst\" -e\"${OBJECTDIR}/inicio.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/inicio.o\" \"inicio.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/inicio.o"
+	@${FIXDEPS} "${OBJECTDIR}/inicio.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 endif
 

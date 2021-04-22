@@ -12,7 +12,7 @@
     __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
 
 ;Variables
-Periodo	    equ	    .100 
+Periodo	    equ	    .100 //.300	
 ;Periodo = (PR2+1)*Prescaler*4*Tosc
 	    
 Duty_On	    equ	    0x20	;Vairalbes de ancho de pulso
@@ -22,51 +22,38 @@ Duty_Off    equ	    0x21
 ;CODIGO    
     ORG	    0
     GOTO    INICIO
-    
-    
+    ORG	    5
+
 INICIO
     BSF	    STATUS,RP0
-    BSF	    STATUS,RP1	    ;Banco 3
-    ANDLW   B'00000001'	    ;RA0 -> Entrada analógica
-    MOVWF  ANSEL
-    ;CLRF    ANSEL	    ;RA0 -> Entrada analógica
-    ;BSF	    ANSEL,0
-    CLRF    ANSELH	    ;PORTB -> como digital 
-    BCF	    STATUS,RP1	;Banco 1
-    ;############### Fracuencia del MCU ##########################################
-    movlw   0x71    ;Cargo valor a w 
-    movwf   OSCCON  ;Oscilador interno 8MHz --> IRCF<2:0> = 1, CCS = 1
-    ;############################################################################
-    CLRF    TRISC	;CCP1 salida
-    CLRF    ADCON1	;ADC -> Alineación izquierda, Vref = VDD
+    BSF	    STATUS,RP1	;Banco 3
+    MOVLW   B'00000001'	
+    MOVLW   ANSEL	;RA0 -> Entrada analógica
+    CLRF    ANSELH	;PORTB -> como digital 
+    BSF	    STATUS,RP1
+    MOVLW   B'11111011'
+    MOVWF   TRISC	;CCP1 salida
     BCF	    STATUS,RP0	;Banco 0
+    BSF	    STATUS,RP0	;Pagina 1
+    CLRF    ADCON1	;ADC -> Alineación izquierda, Vref = VDD
+    BCF	    STATUS,RP0	;Pagina 0
 START
     MOVLW   B'10000001'
     MOVWF   ADCON0	;Activamos ADC, Selecciona canal AN0
     BCF	    PIR1,ADIF	;Restauramos el flags del ADC
     BSF	    ADCON0,GO	;Inicia la conversión
-    
 ADC_start		;Inicia el ADC y se lee los resultados
     BTFSS   PIR1,ADIF	;Pregunta si se acabó con la conversión
     GOTO    ADC_start	;Si aún no se acabó regresa a ADC_start
-    
-    MOVLW   D'125'
-    MOVWF   ADRESH
-    
     MOVF    ADRESH,W
     MOVWF   Duty_On	;Registra el valor para el periodo
-    BSF	    STATUS,RP0	;Banco 1
-    
-    MOVLW   D'3'
-    MOVWF   ADRESL
-
+    BSF	    STATUS,RP0	;Selecciona pagina 1
     RRF	    ADRESL,F	;Hace un corrimiento a la derecha aumentando 1
     RRF	    ADRESL,W
-    BCF	    STATUS,RP0	;Banco 0
+    BCF	    STATUS,RP0	;Selecciona pagina 0
     ANDLW   B'00110000'
     MOVWF   Duty_Off	;Se guarda la conversión más baja en Duty_Off
-
-    ;Configuración PWM
+;Configuración PWM
     MOVLW   B'00001100'
     IORWF   Duty_Off,F	;Se obtienen los valores del Duty_Off
     MOVWF   CCP1CON	;Modo PWM para el CCP1
@@ -81,5 +68,5 @@ ADC_start		;Inicia el ADC y se lee los resultados
 ;Prescaler
     MOVLW   B'00000111'	;Prescaler 1:16 y frecuencia de 20MHz 
     MOVWF   T2CON
-    GOTO    START	;    
+    GOTO    START	;
     END
