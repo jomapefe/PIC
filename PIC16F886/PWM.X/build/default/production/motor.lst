@@ -1,10 +1,10 @@
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  1
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00001    list p=16f886                ;Identifica el PIC a usar
+                      00001   list p=16f886         ;Identifica el PIC a usar
                       00002    #include <P16F886.INC>       ;Cabecera que define los registros del MCU
                       00001         LIST
                       00002 
@@ -24,40 +24,74 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00007 ; CONFIG2
 2008   3FFF           00008     __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
                       00009 
-                      00010 
+  00000022            00010 Contador     equ    0x22            
                       00011 
-                      00012     ORG     0x00
-                      00013  
-0000                  00014 INICIO
-0000   1683           00015     BSF     STATUS,RP0  ;Banco 1
-0001   3071           00016     MOVLW   0X71
+                      00012         ORG     0
+0000   2???           00013         GOTO    INICIO
+                      00014         
+0001                  00015 INICIO
+0001   1683           00016    BSF      STATUS,RP0
+0002   1703           00017     BSF     STATUS,RP1      ;Banco 3
+0003   3901           00018     ANDLW   B'00000001'     ;RA0 -> Entrada analógica
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0002   008F           00017     MOVWF   OSCCON  ;Oscilador interno 8MHz --> IRCF<2:0> = 1, CCS = 1
+0004   0088           00019     MOVWF  ANSEL
+                      00020     ;CLRF    ANSEL          ;RA0 -> Entrada analógica
+                      00021     ;BSF            ANSEL,0
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0003   0186           00018     CLRF    TRISB
+0005   0189           00022     CLRF    ANSELH          ;PORTB -> como digital 
+0006   1303           00023     BCF     STATUS,RP1  ;Banco 1
+                      00024     ;############### Fracuencia del MCU ##########################################
+0007   3071           00025     movlw   0x71    ;Cargo valor a w 
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0004   0187           00019     CLRF    TRISC
-0005   1283           00020     BCF     STATUS,RP0  ;Banco 0
-0006   0186           00021     CLRF            PORTB
-0007   0187           00022     CLRF            PORTC
-0008                  00023 PRINCIPAL
-0008   1687           00024     BSF     PORTC,RC5
-0009   1307           00025     BCF     PORTC,RC6
-000A   1387           00026     BCF     PORTC,RC7
-                      00027    
-                      00028     
-000B   1287           00029     BCF     PORTC,RC5
-000C   1707           00030     BSF     PORTC,RC6
-000D   1387           00031     BCF     PORTC,RC7
-                      00032     
-                      00033    
-                      00034    
-000E   1287           00035     BCF     PORTC,RC5
-000F   1307           00036     BCF     PORTC,RC6
-0010   1787           00037     BSF     PORTC,RC7
-0011   2???           00038     GOTO PRINCIPAL
-2FE4 3FFF             00039     END
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  2
+0008   008F           00026     movwf   OSCCON  ;Oscilador interno 8MHz --> IRCF<2:0> = 1, CCS = 1
+                      00027     ;############################################################################
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0009   0187           00028     CLRF    TRISC       ;CCP1 salida
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000A   019F           00029     CLRF    ADCON1      ;ADC -> Alineación izquierda, Vref = VDD
+                      00030     
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000B   0186           00031     CLRF    TRISB
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000C   1205           00032     BCF     TRISA,RA4
+000D   1283           00033     BCF     STATUS,RP0  ;Banco 0
+000E   1605           00034     BSF     PORTA,RA4
+000F                  00035 START
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000F   3081           00036     MOVLW   B'10000001'
+0010   009F           00037     MOVWF   ADCON0      ;Activamos ADC, Selecciona canal AN0
+0011   130C           00038     BCF     PIR1,ADIF   ;Restauramos el flags del ADC
+0012   2???           00039     CALL    Retardo_20us
+0013   149F           00040     BSF     ADCON0,GO   ;Inicia la conversión   
+0014                  00041 ADC_start               ;Inicia el ADC y se lee los resultados
+0014   1F0C           00042     BTFSS   PIR1,ADIF   ;Pregunta si se acabó con la conversión
+0015   2???           00043     GOTO    ADC_start   
+                      00044         
+0016   081E           00045     MOVF    ADRESH,W   
+0017   0086           00046     MOVWF   PORTB
+0018   1683           00047         BSF         STATUS,RP0  ;Banco 1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0019   081E           00048         MOVF    ADRESL,W 
+001A   1283           00049         BCF         STATUS,RP0  ;Banco 1
+001B   0087           00050         MOVWF   PORTC
+                      00051         
+001C   2???           00052     GOTO    START
+                      00053     
+001D                  00054 Retardo_20us
+001D   3020           00055         movlw   0x20 ;
+001E   00A2           00056         movwf   Contador ; Iniciamos contador1.-
+001F                  00057 Repeticion
+001F   0BA2           00058         decfsz  Contador,1 ; Decrementa Contador1.-
+0020   2???           00059         goto    Repeticion ; Si no es cero repetimos ciclo.-
+0021   0008           00060         return                          ; Regresa de la subrutina.-
+                      00061 
+2FE4 3FFF             00062     END
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  3
 
 
 SYMBOL TABLE
@@ -72,6 +106,7 @@ ADCON0                            0000001F
 ADCON1                            0000009F
 ADCS0                             00000006
 ADCS1                             00000007
+ADC_start                         00000014
 ADDEN                             00000003
 ADFM                              00000007
 ADIE                              00000006
@@ -115,13 +150,13 @@ BRG8                              00000000
 BRG9                              00000001
 BRGH                              00000002
 C                                 00000000
-C1CH0                             00000000
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  3
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  4
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+C1CH0                             00000000
 C1CH1                             00000001
 C1IE                              00000005
 C1IF                              00000005
@@ -174,17 +209,18 @@ CHS2                              00000004
 CHS3                              00000005
 CKE                               00000006
 CKP                               00000004
-CM1CON0                           00000107
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  4
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  5
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+CM1CON0                           00000107
 CM2CON0                           00000108
 CM2CON1                           00000109
 CREN                              00000004
 CSRC                              00000007
+Contador                          00000022
 D                                 00000005
 DATA_ADDRESS                      00000005
 DC                                00000001
@@ -224,7 +260,7 @@ I2C_READ                          00000002
 I2C_START                         00000003
 I2C_STOP                          00000004
 INDF                              00000000
-INICIO                            00000000
+INICIO                            00000001
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
@@ -232,14 +268,14 @@ INTF                              00000001
 IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
-IOCB2                             00000002
-IOCB3                             00000003
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  5
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  6
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+IOCB2                             00000002
+IOCB3                             00000003
 IOCB4                             00000004
 IOCB5                             00000005
 IOCB6                             00000006
@@ -291,14 +327,14 @@ PDC0                              00000000
 PDC1                              00000001
 PDC2                              00000002
 PDC3                              00000003
-PDC4                              00000004
-PDC5                              00000005
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  6
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  7
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PDC4                              00000004
+PDC5                              00000005
 PDC6                              00000006
 PEIE                              00000006
 PEN                               00000002
@@ -311,7 +347,6 @@ PORTB                             00000006
 PORTC                             00000007
 PORTE                             00000009
 PR2                               00000092
-PRINCIPAL                         00000008
 PRSEN                             00000007
 PS0                               00000000
 PS1                               00000001
@@ -351,13 +386,13 @@ RC3                               00000003
 RC4                               00000004
 RC5                               00000005
 RC6                               00000006
-RC7                               00000007
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  7
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  8
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+RC7                               00000007
 RC8_9                             00000006
 RC9                               00000006
 RCD8                              00000000
@@ -377,6 +412,8 @@ RX9                               00000006
 RX9D                              00000000
 R_NOT_W                           00000002
 R_W                               00000002
+Repeticion                        0000001F
+Retardo_20us                      0000001D
 S                                 00000003
 SBOREN                            00000004
 SCKP                              00000004
@@ -405,18 +442,19 @@ SSPM3                             00000003
 SSPMSK                            00000093
 SSPOV                             00000006
 SSPSTAT                           00000094
+START                             0000000F
 STATUS                            00000003
 STRA                              00000000
-STRB                              00000001
-STRC                              00000002
-STRD                              00000003
-STRSYNC                           00000004
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  8
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  9
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+STRB                              00000001
+STRC                              00000002
+STRD                              00000003
+STRSYNC                           00000004
 SWDTEN                            00000000
 SYNC                              00000004
 T0CS                              00000005
@@ -466,16 +504,16 @@ TRISA7                            00000007
 TRISB                             00000086
 TRISB0                            00000000
 TRISB1                            00000001
-TRISB2                            00000002
-TRISB3                            00000003
-TRISB4                            00000004
-TRISB5                            00000005
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  9
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE 10
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
 TRISB6                            00000006
 TRISB7                            00000007
 TRISC                             00000087
@@ -525,16 +563,16 @@ WDTCON                            00000105
 WDTPS0                            00000001
 WDTPS1                            00000002
 WDTPS2                            00000003
-WDTPS3                            00000004
-WPUB                              00000095
-WPUB0                             00000000
-WPUB1                             00000001
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE 10
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE 11
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+WDTPS3                            00000004
+WPUB                              00000095
+WPUB0                             00000000
+WPUB1                             00000001
 WPUB2                             00000002
 WPUB3                             00000003
 WPUB4                             00000004
@@ -584,16 +622,16 @@ _FOSC_LP                          00003FF8
 _FOSC_XT                          00003FF9
 _HS_OSC                           00003FFA
 _IDLOC0                           00002000
-_IDLOC1                           00002001
-_IDLOC2                           00002002
-_IDLOC3                           00002003
-_IESO_OFF                         00003BFF
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE 11
+MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE 12
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_IESO_OFF                         00003BFF
 _IESO_ON                          00003FFF
 _INTOSC                           00003FFD
 _INTOSCIO                         00003FFC
@@ -619,6 +657,6 @@ __16F886                          00000001
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :     3 reported,     0 suppressed
+Messages :     8 reported,     0 suppressed
 
 

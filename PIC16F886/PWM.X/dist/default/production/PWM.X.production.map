@@ -1,37 +1,43 @@
 MPLINK 5.08, LINKER
-Linker Map File - Created Thu Apr 22 01:38:56 2021
+Linker Map File - Created Thu Apr 22 19:49:08 2021
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
-                   .org_0       code   0x000000    program   0x000024
-                   .cinit    romdata   0x000012    program   0x000004
-.config_2007_BUILD/DEFAULT/PRODUCTION/DECODIF       code   0x002007    program   0x000002
-.config_2008_BUILD/DEFAULT/PRODUCTION/DECODIF       code   0x002008    program   0x000002
+                   .org_0       code   0x000000    program   0x000044
+                   .cinit    romdata   0x000022    program   0x000004
+.config_2007_BUILD/DEFAULT/PRODUCTION/MOTOR.O       code   0x002007    program   0x000002
+.config_2008_BUILD/DEFAULT/PRODUCTION/MOTOR.O       code   0x002008    program   0x000002
 
 
 
                               Program Memory Usage 
                                Start         End      
                            ---------   ---------      
-                            0x000000    0x000013      
+                            0x000000    0x000023      
                             0x002007    0x002008      
-            22 out of 8455 program addresses used, program memory utilization is 0%
+            38 out of 8455 program addresses used, program memory utilization is 0%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                   INICIO   0x000000    program     static F:\GitHub\PIC\PIC\PIC16F886\PWM.X\decodificador_7seg.asm
-                PRINCIPAL   0x000008    program     static F:\GitHub\PIC\PIC\PIC16F886\PWM.X\decodificador_7seg.asm
+                ADC_start   0x000014    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
+                   INICIO   0x000001    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
+               Repeticion   0x00001f    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
+             Retardo_20us   0x00001d    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
+                    START   0x00000f    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
 
 
 
                               Symbols - Sorted by Address
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                   INICIO   0x000000    program     static F:\GitHub\PIC\PIC\PIC16F886\PWM.X\decodificador_7seg.asm
-                PRINCIPAL   0x000008    program     static F:\GitHub\PIC\PIC\PIC16F886\PWM.X\decodificador_7seg.asm
+                   INICIO   0x000001    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
+                    START   0x00000f    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
+                ADC_start   0x000014    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
+             Retardo_20us   0x00001d    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
+               Repeticion   0x00001f    program     static D:\GitHub\PIC\PIC\PIC16F886\PWM.X\motor.asm
 
 
