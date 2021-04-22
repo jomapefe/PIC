@@ -4,13 +4,26 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>PWM</name>
-            <creation-uuid>8d83e0ab-641d-48a9-be61-c1f4559b4558</creation-uuid>
+            <creation-uuid>b53752d0-fe8b-454b-b993-1fefc552aed8</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions/>
             <cpp-extensions/>
             <header-extensions/>
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
+            <sourceRootList>
+                <sourceRootElem>.</sourceRootElem>
+                <sourceRootElem>../ADC.X</sourceRootElem>
+            </sourceRootList>
+            <confList>
+                <confElem>
+                    <name>default</name>
+                    <type>2</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
             <make-dep-projects/>
         </data>
     </configuration>

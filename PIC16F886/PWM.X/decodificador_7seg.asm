@@ -12,13 +12,30 @@
     ORG     0x00
  
 INICIO
-    movlw   0x71    ;Cargo valor a w 
-    movwf   OSCCON  ;Oscilador interno 8MHz --> IRCF<2:0> = 1, CCS = 1
-  
+    BSF	    STATUS,RP0	;Banco 1
+    MOVLW   0X71
+    MOVWF   OSCCON  ;Oscilador interno 8MHz --> IRCF<2:0> = 1, CCS = 1
+    CLRF    TRISB
+    CLRF    TRISC
+    BCF	    STATUS,RP0	;Banco 0
+    CLRF	    PORTB
+    CLRF	    PORTC
+PRINCIPAL
+    BSF	    PORTC,RC5
+    BCF	    PORTC,RC6
+    BCF	    PORTC,RC7
+   
     
-PRINCIPAL    
+    BCF	    PORTC,RC5
+    BSF	    PORTC,RC6
+    BCF     PORTC,RC7
     
-    
+   
+   
+    BCF	    PORTC,RC5
+    BCF	    PORTC,RC6
+    BSF	    PORTC,RC7
+    GOTO PRINCIPAL
     END
     
     

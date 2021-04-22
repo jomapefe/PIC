@@ -1,4 +1,4 @@
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  1
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -29,35 +29,19 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00012     ORG     0x00
                       00013  
 0000                  00014 INICIO
-0000   1683           00015     BSF     STATUS,RP0  ;Banco 1
-0001   3071           00016     MOVLW   0X71
+Warning[207]: Found label after column 1. (BSC)
+Error[122]  : Illegal opcode (STATUS)
+0000                  00015     BSC     STATUS,RP0
+0000   3071           00016     movlw   0x71    ;Cargo valor a w 
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0002   008F           00017     MOVWF   OSCCON  ;Oscilador interno 8MHz --> IRCF<2:0> = 1, CCS = 1
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0003   0186           00018     CLRF    TRISB
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0004   0187           00019     CLRF    TRISC
-0005   1283           00020     BCF     STATUS,RP0  ;Banco 0
-0006   0186           00021     CLRF            PORTB
-0007   0187           00022     CLRF            PORTC
-0008                  00023 PRINCIPAL
-0008   1687           00024     BSF     PORTC,RC5
-0009   1307           00025     BCF     PORTC,RC6
-000A   1387           00026     BCF     PORTC,RC7
-                      00027    
-                      00028     
-000B   1287           00029     BCF     PORTC,RC5
-000C   1707           00030     BSF     PORTC,RC6
-000D   1387           00031     BCF     PORTC,RC7
-                      00032     
-                      00033    
-                      00034    
-000E   1287           00035     BCF     PORTC,RC5
-000F   1307           00036     BCF     PORTC,RC6
-0010   1787           00037     BSF     PORTC,RC7
-0011   2???           00038     GOTO PRINCIPAL
-2FE4 3FFF             00039     END
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  2
+0001   008F           00017     movwf   OSCCON  ;Oscilador interno 8MHz --> IRCF<2:0> = 1, CCS = 1
+                      00018   
+                      00019     
+0002                  00020 PRINCIPAL    
+                      00021     
+                      00022     
+2FE4 3FFF             00023     END
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE  2
 
 
 SYMBOL TABLE
@@ -116,7 +100,7 @@ BRG9                              00000001
 BRGH                              00000002
 C                                 00000000
 C1CH0                             00000000
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  3
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE  3
 
 
 SYMBOL TABLE
@@ -175,7 +159,7 @@ CHS3                              00000005
 CKE                               00000006
 CKP                               00000004
 CM1CON0                           00000107
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  4
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE  4
 
 
 SYMBOL TABLE
@@ -234,7 +218,7 @@ IOCB0                             00000000
 IOCB1                             00000001
 IOCB2                             00000002
 IOCB3                             00000003
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  5
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE  5
 
 
 SYMBOL TABLE
@@ -293,7 +277,7 @@ PDC2                              00000002
 PDC3                              00000003
 PDC4                              00000004
 PDC5                              00000005
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  6
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE  6
 
 
 SYMBOL TABLE
@@ -311,7 +295,7 @@ PORTB                             00000006
 PORTC                             00000007
 PORTE                             00000009
 PR2                               00000092
-PRINCIPAL                         00000008
+PRINCIPAL                         00000002
 PRSEN                             00000007
 PS0                               00000000
 PS1                               00000001
@@ -352,7 +336,7 @@ RC4                               00000004
 RC5                               00000005
 RC6                               00000006
 RC7                               00000007
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  7
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE  7
 
 
 SYMBOL TABLE
@@ -411,7 +395,7 @@ STRB                              00000001
 STRC                              00000002
 STRD                              00000003
 STRSYNC                           00000004
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  8
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE  8
 
 
 SYMBOL TABLE
@@ -470,7 +454,7 @@ TRISB2                            00000002
 TRISB3                            00000003
 TRISB4                            00000004
 TRISB5                            00000005
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE  9
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE  9
 
 
 SYMBOL TABLE
@@ -529,7 +513,7 @@ WDTPS3                            00000004
 WPUB                              00000095
 WPUB0                             00000000
 WPUB1                             00000001
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE 10
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE 10
 
 
 SYMBOL TABLE
@@ -588,7 +572,7 @@ _IDLOC1                           00002001
 _IDLOC2                           00002002
 _IDLOC3                           00002003
 _IESO_OFF                         00003BFF
-MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-22-2021  1:38:55         PAGE 11
+MPASM 5.72            DECODIFICADOR_7SEG.ASM   4-21-2021  23:21:52         PAGE 11
 
 
 SYMBOL TABLE
@@ -617,8 +601,8 @@ _WRT_OFF                          00003FFF
 _XT_OSC                           00003FF9
 __16F886                          00000001
 
-Errors   :     0
-Warnings :     0 reported,     0 suppressed
-Messages :     3 reported,     0 suppressed
+Errors   :     1
+Warnings :     1 reported,     0 suppressed
+Messages :     1 reported,     0 suppressed
 
 
