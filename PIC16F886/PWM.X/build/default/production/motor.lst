@@ -1,4 +1,4 @@
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  1
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -54,44 +54,96 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 000B   0186           00031     CLRF    TRISB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 000C   1205           00032     BCF     TRISA,RA4
-000D   1283           00033     BCF     STATUS,RP0  ;Banco 0
-000E   1605           00034     BSF     PORTA,RA4
-000F                  00035 START
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  2
+                      00033     
+                      00034     
+                      00035    ;PWM
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-000F   3081           00036     MOVLW   B'10000001'
-0010   009F           00037     MOVWF   ADCON0      ;Activamos ADC, Selecciona canal AN0
-0011   130C           00038     BCF     PIR1,ADIF   ;Restauramos el flags del ADC
-0012   2???           00039     CALL    Retardo_20us
-0013   149F           00040     BSF     ADCON0,GO   ;Inicia la conversión   
-0014                  00041 ADC_start               ;Inicia el ADC y se lee los resultados
-0014   1F0C           00042     BTFSS   PIR1,ADIF   ;Pregunta si se acabó con la conversión
-0015   2???           00043     GOTO    ADC_start   
-                      00044         
-0016   081E           00045     MOVF    ADRESH,W   
-0017   0086           00046     MOVWF   PORTB
-0018   1683           00047         BSF         STATUS,RP0  ;Banco 1
+000D   304D           00036     MOVLW       D'77'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0019   081E           00048         MOVF    ADRESL,W 
-001A   1283           00049         BCF         STATUS,RP0  ;Banco 1
-001B   0087           00050         MOVWF   PORTC
-                      00051         
-001C   2???           00052     GOTO    START
-                      00053     
-001D                  00054 Retardo_20us
-001D   3020           00055         movlw   0x20 ;
-001E   00A2           00056         movwf   Contador ; Iniciamos contador1.-
-001F                  00057 Repeticion
-001F   0BA2           00058         decfsz  Contador,1 ; Decrementa Contador1.-
-0020   2???           00059         goto    Repeticion ; Si no es cero repetimos ciclo.-
-0021   0008           00060         return                          ; Regresa de la subrutina.-
-                      00061 
-2FE4 3FFF             00062     END
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  3
+000E   0092           00037     MOVWF       PR2
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000F   1006           00038     BCF TRISB,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0010   1107           00039     BCF TRISC,2;RC2 
+                      00040 
+                      00041     
+                      00042     
+                      00043     
+0011   1283           00044     BCF     STATUS,RP0  ;Banco 0
+0012   1605           00045     BSF     PORTA,RA4
+                      00046     
+                      00047     ;PWM
+0013   3030           00048     MOVLW   B'00110000' ;80% MSB
+0014   0095           00049         MOVWF   CCPR1L
+0015   1697           00050         BSF     CCP1CON,5 ; 1 LSB 80%
+0016   1217           00051         BCF     CCP1CON,4 ; 0
+0017   1492           00052         BSF     T2CON,1 ;16 PRESCALER
+0018   1012           00053         BCF     T2CON,0
+0019   1512           00054         BSF     T2CON,2; TMR2 ON
+001A   1597           00055         BSF     CCP1CON,3; 11XX PWM
+001B   1517           00056         BSF     CCP1CON,2
+001C   1497           00057         BSF     CCP1CON,1
+001D   1417           00058         BSF     CCP1CON,0
+                      00059     
+                      00060     
+001E                  00061 START
+001E   3081           00062     MOVLW   B'10000001'
+001F   009F           00063     MOVWF   ADCON0      ;Activamos ADC, Selecciona canal AN0
+0020   130C           00064     BCF     PIR1,ADIF   ;Restauramos el flags del ADC
+0021   2???           00065     CALL    Retardo_20us
+0022   149F           00066     BSF     ADCON0,GO   ;Inicia la conversión   
+0023                  00067 ADC_start               ;Inicia el ADC y se lee los resultados
+0023   1F0C           00068     BTFSS   PIR1,ADIF   ;Pregunta si se acabó con la conversión
+0024   2???           00069     GOTO    ADC_start   
+                      00070         
+0025   081E           00071     MOVF    ADRESH,W
+                      00072     
+0026   0095           00073     MOVWF       CCPR1L
+                      00074     
+0027   0086           00075     MOVWF   PORTB
+0028   1683           00076         BSF         STATUS,RP0  ;Banco 1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0029   081E           00077         MOVF    ADRESL,W 
+002A   1283           00078         BCF         STATUS,RP0  ;Banco 1
+002B   0087           00079         MOVWF   PORTC
+                      00080         
+                      00081    
+                      00082         
+                      00083         
+                      00084         
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00085         
+                      00086         
+                      00087         
+                      00088         
+                      00089         
+                      00090         
+                      00091         
+                      00092         
+                      00093         
+                      00094         
+002C   2???           00095         GOTO    START
+                      00096     
+002D                  00097 Retardo_20us
+002D   3020           00098         movlw   0x20 ;
+002E   00A2           00099         movwf   Contador ; Iniciamos contador1.-
+002F                  00100 Repeticion
+002F   0BA2           00101         decfsz  Contador,1 ; Decrementa Contador1.-
+0030   2???           00102         goto    Repeticion ; Si no es cero repetimos ciclo.-
+0031   0008           00103         return                          ; Regresa de la subrutina.-
+                      00104 
+2FE4 3FFF             00105     END
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE  4
 
 
 SYMBOL TABLE
@@ -106,7 +158,7 @@ ADCON0                            0000001F
 ADCON1                            0000009F
 ADCS0                             00000006
 ADCS1                             00000007
-ADC_start                         00000014
+ADC_start                         00000023
 ADDEN                             00000003
 ADFM                              00000007
 ADIE                              00000006
@@ -150,7 +202,7 @@ BRG8                              00000000
 BRG9                              00000001
 BRGH                              00000002
 C                                 00000000
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  4
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE  5
 
 
 SYMBOL TABLE
@@ -209,7 +261,7 @@ CHS2                              00000004
 CHS3                              00000005
 CKE                               00000006
 CKP                               00000004
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  5
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE  6
 
 
 SYMBOL TABLE
@@ -268,7 +320,7 @@ INTF                              00000001
 IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  6
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE  7
 
 
 SYMBOL TABLE
@@ -327,7 +379,7 @@ PDC0                              00000000
 PDC1                              00000001
 PDC2                              00000002
 PDC3                              00000003
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  7
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE  8
 
 
 SYMBOL TABLE
@@ -386,7 +438,7 @@ RC3                               00000003
 RC4                               00000004
 RC5                               00000005
 RC6                               00000006
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  8
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE  9
 
 
 SYMBOL TABLE
@@ -412,8 +464,8 @@ RX9                               00000006
 RX9D                              00000000
 R_NOT_W                           00000002
 R_W                               00000002
-Repeticion                        0000001F
-Retardo_20us                      0000001D
+Repeticion                        0000002F
+Retardo_20us                      0000002D
 S                                 00000003
 SBOREN                            00000004
 SCKP                              00000004
@@ -442,10 +494,10 @@ SSPM3                             00000003
 SSPMSK                            00000093
 SSPOV                             00000006
 SSPSTAT                           00000094
-START                             0000000F
+START                             0000001E
 STATUS                            00000003
 STRA                              00000000
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE  9
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE 10
 
 
 SYMBOL TABLE
@@ -504,7 +556,7 @@ TRISA7                            00000007
 TRISB                             00000086
 TRISB0                            00000000
 TRISB1                            00000001
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE 10
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE 11
 
 
 SYMBOL TABLE
@@ -563,7 +615,7 @@ WDTCON                            00000105
 WDTPS0                            00000001
 WDTPS1                            00000002
 WDTPS2                            00000003
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE 11
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE 12
 
 
 SYMBOL TABLE
@@ -622,7 +674,7 @@ _FOSC_LP                          00003FF8
 _FOSC_XT                          00003FF9
 _HS_OSC                           00003FFA
 _IDLOC0                           00002000
-MPASM 5.72                         MOTOR.ASM   4-22-2021  19:49:07         PAGE 12
+MPASM 5.72                         MOTOR.ASM   4-23-2021  11:04:26         PAGE 13
 
 
 SYMBOL TABLE
@@ -657,6 +709,6 @@ __16F886                          00000001
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :     8 reported,     0 suppressed
+Messages :    11 reported,     0 suppressed
 
 

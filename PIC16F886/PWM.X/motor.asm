@@ -30,8 +30,34 @@ INICIO
     
     CLRF    TRISB
     BCF	    TRISA,RA4
+    
+    
+   ;PWM
+    MOVLW	D'77'
+    MOVWF	PR2
+    BCF	TRISB,0
+    BCF	TRISC,2;RC2 
+
+    
+    
+    
     BCF	    STATUS,RP0	;Banco 0
     BSF	    PORTA,RA4
+    
+    ;PWM
+    MOVLW   B'00110000' ;80% MSB
+	MOVWF	CCPR1L
+	BSF	CCP1CON,5 ; 1 LSB 80%
+	BCF	CCP1CON,4 ; 0
+	BSF	T2CON,1 ;16 PRESCALER
+	BCF	T2CON,0
+	BSF	T2CON,2; TMR2 ON
+	BSF	CCP1CON,3; 11XX PWM
+	BSF	CCP1CON,2
+	BSF	CCP1CON,1
+	BSF	CCP1CON,0
+    
+    
 START
     MOVLW   B'10000001'
     MOVWF   ADCON0	;Activamos ADC, Selecciona canal AN0
@@ -42,14 +68,31 @@ ADC_start		;Inicia el ADC y se lee los resultados
     BTFSS   PIR1,ADIF	;Pregunta si se acabó con la conversión
     GOTO    ADC_start	
 	
-    MOVF    ADRESH,W   
+    MOVF    ADRESH,W
+    
+    MOVWF	CCPR1L
+    
     MOVWF   PORTB
 	BSF	    STATUS,RP0	;Banco 1
 	MOVF    ADRESL,W 
 	BCF	    STATUS,RP0	;Banco 1
 	MOVWF   PORTC
 	
-    GOTO    START
+   
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	GOTO    START
     
 Retardo_20us
         movlw   0x20 ;

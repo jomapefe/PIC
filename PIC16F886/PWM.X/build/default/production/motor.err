@@ -5,4 +5,7 @@ Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PWM.X\MOTOR.ASM 28 : Register in operan
 Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PWM.X\MOTOR.ASM 29 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PWM.X\MOTOR.ASM 31 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PWM.X\MOTOR.ASM 32 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PWM.X\MOTOR.ASM 48 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PWM.X\MOTOR.ASM 37 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PWM.X\MOTOR.ASM 38 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PWM.X\MOTOR.ASM 39 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\GITHUB\PIC\PIC\PIC16F886\PWM.X\MOTOR.ASM 77 : Register in operand not in bank 0.  Ensure that bank bits are correct.
